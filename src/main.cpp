@@ -12,7 +12,10 @@ int main()
 				window.Close();
 		}
 
-		window.Clear(sf::Color(255,255,255));
+		window.SetActive();
+		GLCheck(glClearColor(1, 1, 1, 1));
+		GLCheck(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+
 		window.Display();
 		std::cout << clock.GetElapsedTime() << std::endl;
 		sf::Sleep(0.5f);
