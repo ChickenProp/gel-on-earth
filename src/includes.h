@@ -5,6 +5,9 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+#include <GL/gl.h>
+#include <GL/glu.h>
+
 #include <iostream>
 
 // I took this from SFML/Graphics/GraphicsContext.hpp, but it doesn't seem

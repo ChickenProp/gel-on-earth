@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -Wno-write-strings
-LDFLAGS = -lGL -lsfml-system -lsfml-window -lsfml-graphics
+LDFLAGS = -lGL -lGLU -lsfml-system -lsfml-window -lsfml-graphics
 exec = ../gel-on-earth
 headers = $(wildcard *.h)
 sources = $(wildcard *.cpp)
