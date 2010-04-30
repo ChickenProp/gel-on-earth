@@ -6,11 +6,32 @@ int main()
 	G::window.Create(sf::VideoMode(G::window_width, G::window_height, 32),
 	                 "Gel on Earth");
 
+	G::player.pos = sf::Vector3f(0, 0, 0);
+
 	while (G::window.IsOpened()) {
 		sf::Event ev;
 		while (G::window.GetEvent(ev)) {
 			if (ev.Type == sf::Event::Closed)
 				G::window.Close();
+			if (ev.Type == sf::Event::KeyPressed) {
+				switch (ev.Key.Code) {
+				case sf::Key::Escape:
+					G::window.Close();
+					break;
+				case sf::Key::Left:
+					G::player.pos.x -= 0.1;
+					break;
+				case sf::Key::Right:
+					G::player.pos.x += 0.1;
+					break;
+				case sf::Key::Up:
+					G::player.pos.z += 0.1;
+					break;
+				case sf::Key::Down:
+					G::player.pos.z -= 0.1;
+					break;
+				}
+			}
 		}
 
 		G::window.SetActive();
@@ -27,7 +48,10 @@ int main()
 		glLoadIdentity();
 		glOrtho(-1, 1, -1, 1, G::clip_near, G::clip_far);
 
-		glTranslatef(0, 1, 5);
+		sf::Vector3f p = G::player.pos;
+		glTranslatef(-p.x, -p.y - 1, -p.z);
+
+		glTranslatef(0, 0, 5);
 		glRotatef(30*G::clock.GetElapsedTime(), 0, 1, 0);
 		float vertices[] = {
 			-0.2, +0.2, -0.2,
