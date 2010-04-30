@@ -1,5 +1,9 @@
 #include "keymap.h"
 
+Keymap::Keymap() {
+	eventMap = std::map<sf::Event, handler_t, bool (*)(sf::Event, sf::Event)>(Keymap::compareEvents);
+}
+
 bool Keymap::compareEvents(sf::Event a, sf::Event b) {
 	if (a.Type < b.Type)
 		return true;
@@ -18,4 +22,17 @@ bool Keymap::compareEvents(sf::Event a, sf::Event b) {
 	default:
 		return false;
 	}
+}
+
+void Keymap::bind(sf::Event ev, bool real, handler_t callback) {
+	if (real)
+		eventMap[ev] = callback;
+	else if (ev.Type == sf::Event::KeyPressed)
+		keyMap[ev.Key.Code] = callback;
+	else if (ev.Type == sf::Event::MouseButtonPressed)
+		mouseMap[ev.MouseButton.Button] = callback;
+}
+
+void Keymap::handleEvent(sf::Event ev) {
+	(*eventMap[ev])(ev, true);
 }

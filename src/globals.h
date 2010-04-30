@@ -3,6 +3,7 @@
 
 #include "includes.h"
 #include "player.h"
+#include "keymap.h"
 
 class G {
 public:
@@ -15,6 +16,8 @@ public:
 	static sf::Clock clock;
 
 	static Player player;
+
+	static Keymap keymap;
 };
 
 sf::RenderWindow G::window;
@@ -24,5 +27,6 @@ int G::window_height = 480;
 float G::clip_near = 1.0;
 float G::clip_far = 10.0;
 Player G::player;
+Keymap G::keymap;
 
 #endif

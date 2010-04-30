@@ -1,6 +1,10 @@
 #include "includes.h"
 #include "globals.h"
 
+void closeWindow(sf::Event ev, bool real) {
+	G::window.Close();
+}
+
 int main()
 {
 	G::window.Create(sf::VideoMode(G::window_width, G::window_height, 32),
@@ -8,10 +12,16 @@ int main()
 
 	G::player.pos = sf::Vector3f(0, 0, 0);
 
+	sf::Event e;
+	e.Type = sf::Event::Closed;
+	G::keymap.bind(e, true, &closeWindow);
+
 	while (G::window.IsOpened()) {
 		sf::Event ev;
 		while (G::window.GetEvent(ev)) {
-			if (ev.Type == sf::Event::Closed)
+			G::keymap.handleEvent(ev);
+
+/*			if (ev.Type == sf::Event::Closed)
 				G::window.Close();
 			if (ev.Type == sf::Event::KeyPressed) {
 				switch (ev.Key.Code) {
@@ -32,6 +42,7 @@ int main()
 					break;
 				}
 			}
+*/
 		}
 
 		G::window.SetActive();
