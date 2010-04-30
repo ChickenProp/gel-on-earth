@@ -1,32 +1,34 @@
 #include "includes.h"
+#include "globals.h"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(640, 480, 32), "Gel on Earth");
-	sf::Clock clock;
-       
-	while (window.IsOpened()) {
+	G::window.Create(sf::VideoMode(G::window_width, G::window_height, 32),
+	                 "Gel on Earth");
+
+	while (G::window.IsOpened()) {
 		sf::Event ev;
-		while (window.GetEvent(ev)) {
+		while (G::window.GetEvent(ev)) {
 			if (ev.Type == sf::Event::Closed)
-				window.Close();
+				G::window.Close();
 		}
 
-		window.SetActive();
+		G::window.SetActive();
 		GLCheck(glClearColor(1, 1, 1, 1));
 		GLCheck(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 		GLCheck(glEnable(GL_DEPTH_TEST));
 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluPerspective(90., 640./480., 1., 10.);
+		gluPerspective(90., G::window_width/G::window_height,
+		               G::clip_near, G::clip_far);
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		glOrtho(-1, 1, -1, 1, 1, 10);
+		glOrtho(-1, 1, -1, 1, G::clip_near, G::clip_far);
 
-		glTranslatef(0, 0, 5);
-		glRotatef(30*clock.GetElapsedTime(), 0, 1, 0);
+		glTranslatef(0, -1, 5);
+		glRotatef(30*G::clock.GetElapsedTime(), 0, 1, 0);
 		float vertices[] = {
 			-0.2, +0.2, -0.2,
 			-0.2, -0.2, -0.2,
@@ -64,7 +66,7 @@ int main()
 
 		glDisableClientState(GL_VERTEX_ARRAY);
 
-		window.Display();
+		G::window.Display();
 	}
 
 	return 0;
