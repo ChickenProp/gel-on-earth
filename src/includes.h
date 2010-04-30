@@ -9,6 +9,7 @@
 #include <GL/glu.h>
 
 #include <iostream>
+#include <map>
 
 // I took this from SFML/Graphics/GraphicsContext.hpp, but it doesn't seem
 // to be exposed at all. So I just copied it.

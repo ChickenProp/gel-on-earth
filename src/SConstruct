@@ -1,2 +1,2 @@
-Program("#gel-on-earth", "main.cpp",
+Program("#gel-on-earth", Glob('*.cpp'),
         LIBS=['GL', 'GLU', 'sfml-system', 'sfml-window', 'sfml-graphics'])
