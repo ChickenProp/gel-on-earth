@@ -27,7 +27,7 @@ int main()
 		glLoadIdentity();
 		glOrtho(-1, 1, -1, 1, G::clip_near, G::clip_far);
 
-		glTranslatef(0, -1, 5);
+		glTranslatef(0, 1, 5);
 		glRotatef(30*G::clock.GetElapsedTime(), 0, 1, 0);
 		float vertices[] = {
 			-0.2, +0.2, -0.2,

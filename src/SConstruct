@@ -1,0 +1,2 @@
+Program("#gel-on-earth", "main.cpp",
+        LIBS=['GL', 'GLU', 'sfml-system', 'sfml-window', 'sfml-graphics'])
