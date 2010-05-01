@@ -4,12 +4,14 @@
 #include "includes.h"
 
 typedef void (*handler_t)(sf::Event, bool);
+typedef std::map<sf::Event, handler_t, bool (*)(sf::Event, sf::Event)>
+	    event_map_t;
 
 class Keymap {
 public:
 	Keymap();
 
-	std::map<sf::Event, handler_t, bool (*)(sf::Event, sf::Event)> eventMap;
+	event_map_t eventMap;
 	std::map<sf::Key::Code, handler_t> keyMap;
 	std::map<sf::Mouse::Button, handler_t> mouseMap;
 

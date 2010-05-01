@@ -1,7 +1,7 @@
 #include "keymap.h"
 
 Keymap::Keymap() {
-	eventMap = std::map<sf::Event, handler_t, bool (*)(sf::Event, sf::Event)>(Keymap::compareEvents);
+	eventMap = event_map_t(Keymap::compareEvents);
 }
 
 bool Keymap::compareEvents(sf::Event a, sf::Event b) {
@@ -34,5 +34,7 @@ void Keymap::bind(sf::Event ev, bool real, handler_t callback) {
 }
 
 void Keymap::handleEvent(sf::Event ev) {
-	(*eventMap[ev])(ev, true);
+	event_map_t::iterator it = eventMap.find(ev);
+	if (it != eventMap.end())
+		((*it).second)(ev, true);
 }

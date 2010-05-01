@@ -20,9 +20,6 @@ int main()
 		sf::Event ev;
 		while (G::window.GetEvent(ev)) {
 			G::keymap.handleEvent(ev);
-
-/*			if (ev.Type == sf::Event::Closed)
-				G::window.Close();
 			if (ev.Type == sf::Event::KeyPressed) {
 				switch (ev.Key.Code) {
 				case sf::Key::Escape:
@@ -42,7 +39,7 @@ int main()
 					break;
 				}
 			}
-*/
+
 		}
 
 		G::window.SetActive();
