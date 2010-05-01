@@ -15,6 +15,9 @@ int main()
 	sf::Event e;
 	e.Type = sf::Event::Closed;
 	G::keymap.bind(e, true, &closeWindow);
+	e.Type = sf::Event::KeyPressed;
+	e.Key.Code = sf::Key::Escape;
+	G::keymap.bind(e, true, &closeWindow);
 
 	while (G::window.IsOpened()) {
 		sf::Event ev;
@@ -22,9 +25,6 @@ int main()
 			G::keymap.handleEvent(ev);
 			if (ev.Type == sf::Event::KeyPressed) {
 				switch (ev.Key.Code) {
-				case sf::Key::Escape:
-					G::window.Close();
-					break;
 				case sf::Key::Left:
 					G::player.pos.x -= 0.1;
 					break;
