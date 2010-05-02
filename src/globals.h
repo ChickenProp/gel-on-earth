@@ -13,6 +13,8 @@ public:
 	static float clip_near;
 	static float clip_far;
 
+	static sf::Vector2i mouseDelta;
+
 	static sf::Clock clock;
 
 	static Player player;
@@ -28,5 +30,6 @@ float G::clip_near = 1.0;
 float G::clip_far = 10.0;
 Player G::player;
 Keymap G::keymap;
+sf::Vector2i G::mouseDelta(0,0);
 
 #endif

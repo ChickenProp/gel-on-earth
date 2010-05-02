@@ -9,6 +9,7 @@ int main()
 {
 	G::window.Create(sf::VideoMode(G::window_width, G::window_height, 32),
 	                 "Gel on Earth");
+	G::window.ShowMouseCursor(false);
 
 	G::player.pos = sf::Vector3f(0, 0, 0);
 
@@ -27,9 +28,25 @@ int main()
 	G::keymap.bindMouse(sf::Mouse::Left, &closeWindow);
 
 	while (G::window.IsOpened()) {
+		int i = 0;
+		int cX = G::window_width/2;
+		int cY = G::window_height/2;
+
+		int x = G::window.GetInput().GetMouseX();
+		int y = G::window.GetInput().GetMouseY();
+
+		G::mouseDelta = sf::Vector2i(x - cX, y - cY);
+		if (x - cX != 0 || y - cY != 0) {
+			printf("delta is  (%d, %d)\n", x - cX, y - cY);
+			G::window.SetCursorPosition(cX, cY);
+		}
+
 		sf::Event ev;
 		while (G::window.GetEvent(ev)) {
 			G::keymap.handleEvent(ev);
+			if (ev.Type == sf::Event::MouseMoved) {
+				printf("there was a mouse move event %d: (%d, %d)\n",++i, ev.MouseMove.X, ev.MouseMove.Y);
+			}
 			if (ev.Type == sf::Event::KeyPressed) {
 				switch (ev.Key.Code) {
 				case sf::Key::Left:
