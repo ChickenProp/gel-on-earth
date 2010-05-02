@@ -13,11 +13,18 @@ int main()
 	G::player.pos = sf::Vector3f(0, 0, 0);
 
 	sf::Event e;
+
+	G::keymap.attach(&G::window);
+
 	e.Type = sf::Event::Closed;
-	G::keymap.bind(e, true, &closeWindow);
+	G::keymap.bindEvent(e, &closeWindow);
+
 	e.Type = sf::Event::KeyPressed;
 	e.Key.Code = sf::Key::Escape;
-	G::keymap.bind(e, true, &closeWindow);
+	G::keymap.bindEvent(e, &closeWindow);
+
+	G::keymap.bindKey(sf::Key::A, &closeWindow);
+	G::keymap.bindMouse(sf::Mouse::Left, &closeWindow);
 
 	while (G::window.IsOpened()) {
 		sf::Event ev;
@@ -41,6 +48,8 @@ int main()
 			}
 
 		}
+
+		G::keymap.handleNonEvents();
 
 		G::window.SetActive();
 		GLCheck(glClearColor(1, 1, 1, 1));
