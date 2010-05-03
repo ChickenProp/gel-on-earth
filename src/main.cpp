@@ -5,6 +5,11 @@ void closeWindow(sf::Event ev, bool real) {
 	G::window.Close();
 }
 
+void printDelta(sf::Event ev, bool real) {
+	sf::Vector2i v = G::getMouseMoveDelta(ev);
+	printf("(%d, %d)\n", v.x, v.y);
+}
+
 int main()
 {
 	G::window.Create(sf::VideoMode(G::window_width, G::window_height, 32),
@@ -24,29 +29,40 @@ int main()
 	e.Key.Code = sf::Key::Escape;
 	G::keymap.bindEvent(e, &closeWindow);
 
+	e.Type = sf::Event::MouseMoved;
+	G::keymap.bindEvent(e, &printDelta);
+
 	G::keymap.bindKey(sf::Key::A, &closeWindow);
 	G::keymap.bindMouse(sf::Mouse::Left, &closeWindow);
 
 	while (G::window.IsOpened()) {
-		int i = 0;
-		int cX = G::window_width/2;
-		int cY = G::window_height/2;
-
-		int x = G::window.GetInput().GetMouseX();
-		int y = G::window.GetInput().GetMouseY();
-
-		G::mouseDelta = sf::Vector2i(x - cX, y - cY);
-		if (x - cX != 0 || y - cY != 0) {
-			printf("delta is  (%d, %d)\n", x - cX, y - cY);
-			G::window.SetCursorPosition(cX, cY);
-		}
-
 		sf::Event ev;
 		while (G::window.GetEvent(ev)) {
-			G::keymap.handleEvent(ev);
+
+			/* We calculate the delta-position of a MouseMove event
+			   by taking its distance from the centre of the
+			   screen. So it needs to have been reset there after
+			   the previous event. If we ever stop doing that,
+			   G::getMouseMoveDelta will stop working.
+
+			   I don't know if this works properly. If I wiggle the
+			   mouse fast, it produces a lot of events at position
+			   (320, 240), which seems unlikely. It appears to work
+			   well enough in practice, and if the handler ignores
+			   (0, 0)-deltas, there's no problem except maybe
+			   speed. Possibly the X server has trouble keeping up:
+			   I should test wiggling with SDL events, for example.
+
+			   If SFML just provided mouse delta in the event, this
+			   wouldn't be necessary. :/
+			*/
 			if (ev.Type == sf::Event::MouseMoved) {
-				printf("there was a mouse move event %d: (%d, %d)\n",++i, ev.MouseMove.X, ev.MouseMove.Y);
+				int cX = G::window_width/2;
+				int cY = G::window_height/2;
+				G::window.SetCursorPosition(cX, cY);
 			}
+
+			G::keymap.handleEvent(ev);
 			if (ev.Type == sf::Event::KeyPressed) {
 				switch (ev.Key.Code) {
 				case sf::Key::Left:

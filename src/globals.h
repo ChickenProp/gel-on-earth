@@ -13,7 +13,11 @@ public:
 	static float clip_near;
 	static float clip_far;
 
-	static sf::Vector2i mouseDelta;
+	/* We use this because SFML doesn't provide delta coordinates in the
+	   MouseMove event. It relies on us resetting the cursor back to the
+	   centre of the screen after every MouseMove event, which we do in the
+	   mainloop. */
+	static sf::Vector2i getMouseMoveDelta(sf::Event e);
 
 	static sf::Clock clock;
 
@@ -30,6 +34,11 @@ float G::clip_near = 1.0;
 float G::clip_far = 10.0;
 Player G::player;
 Keymap G::keymap;
-sf::Vector2i G::mouseDelta(0,0);
+
+sf::Vector2i G::getMouseMoveDelta(sf::Event e) {
+	return sf::Vector2i(window_width/2 - e.MouseMove.X,
+	                    window_height/2 - e.MouseMove.Y);
+}
+
 
 #endif
