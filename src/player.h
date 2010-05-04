@@ -5,7 +5,10 @@
 
 class Player {
 public:
+	Player();
+
 	sf::Vector3f pos;
+	sf::Vector3f orientation;
 };
 
 #endif

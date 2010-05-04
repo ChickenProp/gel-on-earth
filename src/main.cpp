@@ -1,5 +1,6 @@
 #include "includes.h"
 #include "globals.h"
+#include "util.h"
 
 void closeWindow(sf::Event ev, bool real) {
 	G::window.Close();
@@ -15,8 +16,6 @@ int main()
 	G::window.Create(sf::VideoMode(G::window_width, G::window_height, 32),
 	                 "Gel on Earth");
 	G::window.ShowMouseCursor(false);
-
-	G::player.pos = sf::Vector3f(0, 0, 0);
 
 	sf::Event e;
 
@@ -97,6 +96,11 @@ int main()
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glOrtho(-1, 1, -1, 1, G::clip_near, G::clip_far);
+
+		sf::Vector3f o = G::player.orientation;
+		sf::Vector3f f = sf::Vector3f(0, 0, 1);
+		sf::Vector3f n = vCross(o, f);
+		glRotatef(-vAngleBetween(o, f), n.x, n.y, n.z);
 
 		sf::Vector3f p = G::player.pos;
 		glTranslatef(-p.x, -p.y - 1, -p.z);
