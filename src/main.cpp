@@ -6,9 +6,11 @@ void closeWindow(sf::Event ev, bool real) {
 	G::window.Close();
 }
 
-void printDelta(sf::Event ev, bool real) {
+void lookAround(sf::Event ev, bool real) {
 	sf::Vector2i v = G::getMouseMoveDelta(ev);
-	printf("(%d, %d)\n", v.x, v.y);
+	if (v.x == 0 && v.y == 0)
+		return;
+	G::player.changeOrientationWithMouse(v.x, v.y);
 }
 
 int main()
@@ -16,6 +18,9 @@ int main()
 	G::window.Create(sf::VideoMode(G::window_width, G::window_height, 32),
 	                 "Gel on Earth");
 	G::window.ShowMouseCursor(false);
+	int cX = G::window_width/2;
+	int cY = G::window_height/2;
+	G::window.SetCursorPosition(cX, cY);
 
 	sf::Event e;
 
@@ -29,7 +34,7 @@ int main()
 	G::keymap.bindEvent(e, &closeWindow);
 
 	e.Type = sf::Event::MouseMoved;
-	G::keymap.bindEvent(e, &printDelta);
+	G::keymap.bindEvent(e, &lookAround);
 
 	G::keymap.bindKey(sf::Key::A, &closeWindow);
 	G::keymap.bindMouse(sf::Mouse::Left, &closeWindow);
@@ -98,9 +103,11 @@ int main()
 		glOrtho(-1, 1, -1, 1, G::clip_near, G::clip_far);
 
 		sf::Vector3f o = G::player.orientation;
-		sf::Vector3f f = sf::Vector3f(0, 0, 1);
+		gluLookAt(o.x, o.z, o.y, 0, 0, 0, 0, 1, 0);
+
+		/*sf::Vector3f f = sf::Vector3f(0, 0, 1);
 		sf::Vector3f n = vCross(o, f);
-		glRotatef(-vAngleBetween(o, f), n.x, n.y, n.z);
+		glRotatef(-vAngleBetween(o, f), n.x, n.y, n.z);*/
 
 		sf::Vector3f p = G::player.pos;
 		glTranslatef(-p.x, -p.y - 1, -p.z);
