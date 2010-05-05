@@ -70,16 +70,16 @@ int main()
 			if (ev.Type == sf::Event::KeyPressed) {
 				switch (ev.Key.Code) {
 				case sf::Key::Left:
-					G::player.pos.x -= 0.1;
+					G::player.strafe(0, -1);
 					break;
 				case sf::Key::Right:
-					G::player.pos.x += 0.1;
+					G::player.strafe(0, 1);
 					break;
 				case sf::Key::Up:
-					G::player.pos.z += 0.1;
+					G::player.strafe(1, 0);
 					break;
 				case sf::Key::Down:
-					G::player.pos.z -= 0.1;
+					G::player.strafe(-1, 0);
 					break;
 				}
 			}
@@ -102,15 +102,7 @@ int main()
 		glLoadIdentity();
 		glOrtho(-1, 1, -1, 1, G::clip_near, G::clip_far);
 
-		sf::Vector3f o = G::player.orientation;
-		gluLookAt(o.x, o.z, o.y, 0, 0, 0, 0, 1, 0);
-
-		/*sf::Vector3f f = sf::Vector3f(0, 0, 1);
-		sf::Vector3f n = vCross(o, f);
-		glRotatef(-vAngleBetween(o, f), n.x, n.y, n.z);*/
-
-		sf::Vector3f p = G::player.pos;
-		glTranslatef(-p.x, -p.y - 1, -p.z);
+		G::player.setupCamera();
 
 		glTranslatef(0, 0, 5);
 		glRotatef(30*G::clock.GetElapsedTime(), 0, 1, 0);

@@ -24,6 +24,9 @@ template <typename T>
 double vLength (const sf::Vector3<T> &a);
 
 template <typename T>
+sf::Vector3<T> vNormalize(const sf::Vector3<T> &a);
+
+template <typename T>
 double vAngleBetween_r(const sf::Vector3<T> &a, const sf::Vector3<T> &b);
 
 template <typename T>
