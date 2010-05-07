@@ -14,6 +14,13 @@ int main()
 
 	setupKeyBindings();
 
+	sf::Font fpsFont;
+	fpsFont.LoadFromFile("impact.ttf");
+
+	float timeNow = 0;
+	float timeLastFrame = 0;
+	float dt = 0;
+
 	while (G::window.IsOpened()) {
 		sf::Event ev;
 		while (G::window.GetEvent(ev)) {
@@ -65,6 +72,12 @@ int main()
 		G::player.setupCamera();
 
 		G::world.draw();
+
+		timeLastFrame = timeNow;
+		timeNow = G::clock.GetElapsedTime();
+		dt = timeNow - timeLastFrame;
+
+		printf("fps is %f\n", 1.0f/dt);
 
 		G::window.Display();
 	}
