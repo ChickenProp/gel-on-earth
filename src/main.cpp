@@ -1,17 +1,7 @@
 #include "includes.h"
 #include "globals.h"
 #include "util.h"
-
-void closeWindow(sf::Event ev, bool real) {
-	G::window.Close();
-}
-
-void lookAround(sf::Event ev, bool real) {
-	sf::Vector2i v = G::getMouseMoveDelta(ev);
-	if (v.x == 0 && v.y == 0)
-		return;
-	G::player.changeOrientationWithMouse(v.x, v.y);
-}
+#include "bindings.h"
 
 int main()
 {
@@ -22,22 +12,7 @@ int main()
 	int cY = G::window_height/2;
 	G::window.SetCursorPosition(cX, cY);
 
-	sf::Event e;
-
-	G::keymap.attach(&G::window);
-
-	e.Type = sf::Event::Closed;
-	G::keymap.bindEvent(e, &closeWindow);
-
-	e.Type = sf::Event::KeyPressed;
-	e.Key.Code = sf::Key::Escape;
-	G::keymap.bindEvent(e, &closeWindow);
-
-	e.Type = sf::Event::MouseMoved;
-	G::keymap.bindEvent(e, &lookAround);
-
-	G::keymap.bindKey(sf::Key::A, &closeWindow);
-	G::keymap.bindMouse(sf::Mouse::Left, &closeWindow);
+	setupKeyBindings();
 
 	while (G::window.IsOpened()) {
 		sf::Event ev;
@@ -67,23 +42,6 @@ int main()
 			}
 
 			G::keymap.handleEvent(ev);
-			if (ev.Type == sf::Event::KeyPressed) {
-				switch (ev.Key.Code) {
-				case sf::Key::Left:
-					G::player.strafe(0, -1);
-					break;
-				case sf::Key::Right:
-					G::player.strafe(0, 1);
-					break;
-				case sf::Key::Up:
-					G::player.strafe(1, 0);
-					break;
-				case sf::Key::Down:
-					G::player.strafe(-1, 0);
-					break;
-				}
-			}
-
 		}
 
 		G::keymap.handleNonEvents();
