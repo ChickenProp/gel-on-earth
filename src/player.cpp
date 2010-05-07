@@ -6,11 +6,16 @@ Player::Player() {
 	orientation = vSpherical(1, 3, 90);
 }
 
+void Player::update() {
+	pos += vel;
+	vel = sf::Vector3f(0,0,0);
+}
+
 void Player::strafe(float fwd, float side) {
 	sf::Vector3f front = vNormalize(vProjectXY(orientation));
 	sf::Vector3f left = vCross(front, sf::Vector3f(0, 0, 1));
 
-	pos += front*fwd + left*side;
+	vel += (front*fwd + left*side)/50.0f;
 }
 
 void Player::setupCamera() {

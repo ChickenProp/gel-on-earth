@@ -14,6 +14,8 @@ public:
 
 	void strafe(float fwd, float side);
 
+	void update();
+
 	void setupCamera();
 	sf::Vector3f changeOrientationWithMouse(int x, int y);
 };
