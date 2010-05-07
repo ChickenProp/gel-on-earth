@@ -64,20 +64,22 @@ int main()
 		G::player.update();
 
 		G::window.SetActive();
-		GLCheck(glClearColor(1, 1, 1, 1));
-		GLCheck(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-		GLCheck(glEnable(GL_ALPHA_TEST));
-		GLCheck(glEnable(GL_DEPTH_TEST));
+		GLCheck( glClearColor(1, 1, 1, 1) );
+		GLCheck( glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) );
+		GLCheck( glEnable(GL_ALPHA_TEST) );
+		GLCheck( glEnable(GL_DEPTH_TEST) );
+		GLCheck( glEnable(GL_BLEND) );
+		GLCheck( glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) );
 
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		gluPerspective(90., G::window_width/G::window_height,
-		               G::clip_near, G::clip_far);
+		GLCheck( glMatrixMode(GL_PROJECTION) );
+		GLCheck( glLoadIdentity() );
+		GLCheck( gluPerspective(90., G::window_width/G::window_height,
+		                        G::clip_near, G::clip_far) );
 
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
+		GLCheck( glMatrixMode(GL_MODELVIEW) );
+		GLCheck( glLoadIdentity() );
 
-		glOrtho(-1, 1, -1, 1, G::clip_near, G::clip_far);
+		GLCheck( glOrtho(-1, 1, -1, 1, G::clip_near, G::clip_far) );
 
 		G::player.setupCamera();
 
@@ -86,10 +88,6 @@ int main()
 		timeLastFrame = timeNow;
 		timeNow = G::clock.GetElapsedTime();
 		dt = timeNow - timeLastFrame;
-
-		GLCheck(glPushAttrib(GL_COLOR_BUFFER_BIT | GL_CURRENT_BIT
-		                     | GL_ENABLE_BIT     | GL_TEXTURE_BIT
-		                     | GL_TRANSFORM_BIT  | GL_VIEWPORT_BIT));
 
 		fpsStr.SetText("n fps");
 		G::window.Draw(fpsStr);

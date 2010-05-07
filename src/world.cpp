@@ -30,6 +30,8 @@ void World::draw() {
 		0,4, 1,5, 2,6, 3,7,
 	};
 
+	glBindTexture(GL_TEXTURE_2D, 0);
+
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 
