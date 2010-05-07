@@ -7,6 +7,7 @@ int main()
 {
 	G::window.Create(sf::VideoMode(G::window_width, G::window_height, 32),
 	                 "Gel on Earth");
+	//G::window.PreserveOpenGLStates(true);
 	G::window.ShowMouseCursor(false);
 	int cX = G::window_width/2;
 	int cY = G::window_height/2;
@@ -14,8 +15,8 @@ int main()
 
 	setupKeyBindings();
 
-	sf::Font fpsFont;
-	fpsFont.LoadFromFile("impact.ttf");
+	sf::String fpsStr("", sf::Font::GetDefaultFont(), 15);
+	fpsStr.SetColor(sf::Color(0,0,0));
 
 	float timeNow = 0;
 	float timeLastFrame = 0;
@@ -53,11 +54,19 @@ int main()
 
 		G::keymap.handleNonEvents();
 
+		// We might have closed the window in the event loop. If so,
+		// trying to draw will produce an X error. (Interestingly, not
+		// if PreserveOpenGLStates is on, though looking at the code
+		// I can't work out why that matters.)
+		if (!G::window.IsOpened())
+			break;
+
 		G::player.update();
 
 		G::window.SetActive();
 		GLCheck(glClearColor(1, 1, 1, 1));
 		GLCheck(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+		GLCheck(glEnable(GL_ALPHA_TEST));
 		GLCheck(glEnable(GL_DEPTH_TEST));
 
 		glMatrixMode(GL_PROJECTION);
@@ -67,6 +76,7 @@ int main()
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
+
 		glOrtho(-1, 1, -1, 1, G::clip_near, G::clip_far);
 
 		G::player.setupCamera();
@@ -77,7 +87,15 @@ int main()
 		timeNow = G::clock.GetElapsedTime();
 		dt = timeNow - timeLastFrame;
 
-		printf("fps is %f\n", 1.0f/dt);
+		GLCheck(glPushAttrib(GL_COLOR_BUFFER_BIT | GL_CURRENT_BIT
+		                     | GL_ENABLE_BIT     | GL_TEXTURE_BIT
+		                     | GL_TRANSFORM_BIT  | GL_VIEWPORT_BIT));
+
+		fpsStr.SetText("n fps");
+		G::window.Draw(fpsStr);
+		//printf("fps is %f\n", 1.0f/dt);
+
+		GLCheck(glPopAttrib());
 
 		G::window.Display();
 	}
