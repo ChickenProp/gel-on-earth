@@ -7,6 +7,7 @@ int G::window_height = 480;
 float G::clip_near = 1.0;
 float G::clip_far = 10.0;
 Player G::player;
+World G::world;
 Keymap G::keymap;
 
 sf::Vector2i G::getMouseMoveDelta(sf::Event e) {

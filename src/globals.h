@@ -4,6 +4,7 @@
 #include "includes.h"
 #include "player.h"
 #include "keymap.h"
+#include "world.h"
 
 class G {
 public:
@@ -22,6 +23,7 @@ public:
 	static sf::Clock clock;
 
 	static Player player;
+	static World world;
 
 	static Keymap keymap;
 };
