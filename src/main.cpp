@@ -16,6 +16,7 @@ int main()
 	setupKeyBindings();
 
 	sf::String fpsStr("", sf::Font::GetDefaultFont(), 15);
+	char fpsCStr[] = "xxxx fps";
 	fpsStr.SetColor(sf::Color(0,0,0));
 
 	float timeNow = 0;
@@ -89,9 +90,9 @@ int main()
 		timeNow = G::clock.GetElapsedTime();
 		dt = timeNow - timeLastFrame;
 
-		fpsStr.SetText("n fps");
+		sprintf(fpsCStr, "%4d fps", (int) (1.0f/dt));
+		fpsStr.SetText(fpsCStr);
 		G::window.Draw(fpsStr);
-		//printf("fps is %f\n", 1.0f/dt);
 
 		GLCheck(glPopAttrib());
 
