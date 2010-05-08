@@ -16,14 +16,20 @@ int main()
 	setupKeyBindings();
 
 	sf::String fpsStr("", sf::Font::GetDefaultFont(), 15);
-	char fpsCStr[] = "xxxx fps";
+	char fpsCStr[10] = "";
 	fpsStr.SetColor(sf::Color(0,0,0));
 
 	float timeNow = 0;
 	float timeLastFrame = 0;
 	float dt = 0;
+	int frameNum = 0;
+
+	float timeLastFpsDisplay = 0;
+	int frameLastFpsDisplay = 0;
 
 	while (G::window.IsOpened()) {
+		frameNum++;
+
 		sf::Event ev;
 		while (G::window.GetEvent(ev)) {
 
@@ -90,7 +96,13 @@ int main()
 		timeNow = G::clock.GetElapsedTime();
 		dt = timeNow - timeLastFrame;
 
-		sprintf(fpsCStr, "%4d fps", (int) (1.0f/dt));
+		float longdt = timeNow - timeLastFpsDisplay;
+		if (longdt >= 1) {
+			sprintf(fpsCStr, "%4d fps",
+			        (int) ((float)(frameNum - frameLastFpsDisplay)/longdt));
+			frameLastFpsDisplay = frameNum;
+			timeLastFpsDisplay = timeNow;
+		}
 		fpsStr.SetText(fpsCStr);
 		G::window.Draw(fpsStr);
 
