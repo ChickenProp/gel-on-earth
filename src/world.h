@@ -5,6 +5,10 @@
 
 class World {
 public:
+	World();
+
+	sf::Image wall;
+
 	void draw();
 };
 

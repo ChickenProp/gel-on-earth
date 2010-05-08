@@ -1,6 +1,10 @@
 #include "world.h"
 #include "globals.h"
 
+World::World() {
+	wall.LoadFromFile("media/wall.tga");
+}
+
 void World::draw() {
 	glTranslatef(0, 0, 5);
 	glRotatef(30*G::clock.GetElapsedTime(), 0, 1, 0);
@@ -13,6 +17,17 @@ void World::draw() {
 		-0.2, -0.2, +0.2,
 		+0.2, -0.2, +0.2,
 		+0.2, +0.2, +0.2,
+	};
+
+	unsigned short texCoords[] = {
+		0, 0,
+		0, 1,
+		1, 1,
+		1, 0,
+		1, 0,
+		1, 1,
+		0, 1,
+		0, 0,
 	};
 
 	unsigned short faces[] = {
@@ -30,15 +45,21 @@ void World::draw() {
 		0,4, 1,5, 2,6, 3,7,
 	};
 
-	glBindTexture(GL_TEXTURE_2D, 0);
+	wall.Bind();
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 
-	glColor3f(0, 0, 0);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glTexCoordPointer(2, GL_SHORT, 0, texCoords);
+
+	glColor3f(1, 1, 1);
 	glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, faces);
 
-	glColor3f(1, 0, 0);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glColor3f(0, 0, 0);
 	glDrawElements(GL_LINES, 24, GL_UNSIGNED_SHORT, edges);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
