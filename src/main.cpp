@@ -106,8 +106,6 @@ int main()
 		fpsStr.SetText(fpsCStr);
 		G::window.Draw(fpsStr);
 
-		GLCheck(glPopAttrib());
-
 		G::window.Display();
 	}
 
