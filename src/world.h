@@ -2,8 +2,9 @@
 #define _WORLD_H
 
 #include "includes.h"
+#include "screen.h"
 
-class World {
+class World : public Screen {
 public:
 	World();
 
