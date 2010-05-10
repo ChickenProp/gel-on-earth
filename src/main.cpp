@@ -3,6 +3,7 @@
 #include "util.h"
 #include "bindings.h"
 #include "fps.h"
+#include "world.h"
 
 int main()
 {
@@ -14,6 +15,7 @@ int main()
 	int cY = G::window_height/2;
 	G::window.SetCursorPosition(cX, cY);
 
+	G::curScreen = &G::gameScreen;
 	setupKeyBindings();
 
 	sf::String fpsStr("", sf::Font::GetDefaultFont(), 15);
@@ -47,10 +49,10 @@ int main()
 				G::window.SetCursorPosition(cX, cY);
 			}
 
-			G::keymap.handleEvent(ev);
+			G::curScreen->keymap.handleEvent(ev);
 		}
 
-		G::keymap.handleNonEvents();
+		G::curScreen->keymap.handleNonEvents();
 
 		// We might have closed the window in the event loop. If so,
 		// trying to draw will produce an X error. (Interestingly, not
@@ -59,7 +61,7 @@ int main()
 		if (!G::window.IsOpened())
 			break;
 
-		G::player.update();
+		G::curScreen->update();
 
 		G::window.SetActive();
 		GLCheck( glClearColor(1, 1, 1, 1) );
@@ -79,9 +81,7 @@ int main()
 
 		GLCheck( glOrtho(-1, 1, -1, 1, G::clip_near, G::clip_far) );
 
-		G::player.setupCamera();
-
-		G::world.draw();
+		G::curScreen->draw();
 
 		FPS::Update();
 		sprintf(fpsCStr, "%4d fps", FPS::GetFPS());

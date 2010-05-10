@@ -2,8 +2,7 @@
 #define _GLOBALS_H
 
 #include "includes.h"
-#include "player.h"
-#include "keymap.h"
+#include "screen.h"
 #include "world.h"
 
 class G {
@@ -22,10 +21,8 @@ public:
 
 	static sf::Clock clock;
 
-	static Player player;
-	static World world;
-
-	static Keymap keymap;
+	static World gameScreen;
+	static Screen *curScreen;
 };
 
 #endif
