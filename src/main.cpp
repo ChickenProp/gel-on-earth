@@ -2,6 +2,7 @@
 #include "globals.h"
 #include "util.h"
 #include "bindings.h"
+#include "fps.h"
 
 int main()
 {
@@ -19,17 +20,7 @@ int main()
 	char fpsCStr[10] = "";
 	fpsStr.SetColor(sf::Color(0,0,0));
 
-	float timeNow = 0;
-	float timeLastFrame = 0;
-	float dt = 0;
-	int frameNum = 0;
-
-	float timeLastFpsDisplay = 0;
-	int frameLastFpsDisplay = 0;
-
 	while (G::window.IsOpened()) {
-		frameNum++;
-
 		sf::Event ev;
 		while (G::window.GetEvent(ev)) {
 
@@ -92,17 +83,8 @@ int main()
 
 		G::world.draw();
 
-		timeLastFrame = timeNow;
-		timeNow = G::clock.GetElapsedTime();
-		dt = timeNow - timeLastFrame;
-
-		float longdt = timeNow - timeLastFpsDisplay;
-		if (longdt >= 1) {
-			sprintf(fpsCStr, "%4d fps",
-			        (int) ((float)(frameNum - frameLastFpsDisplay)/longdt));
-			frameLastFpsDisplay = frameNum;
-			timeLastFpsDisplay = timeNow;
-		}
+		FPS::Update();
+		sprintf(fpsCStr, "%4d fps", FPS::GetFPS());
 		fpsStr.SetText(fpsCStr);
 		G::window.Draw(fpsStr);
 
