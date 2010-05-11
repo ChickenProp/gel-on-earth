@@ -15,7 +15,7 @@ int main()
 	int cY = G::window_height/2;
 	G::window.SetCursorPosition(cX, cY);
 
-	G::curScreen = &G::gameScreen;
+	G::curScreen = &G::menuScreen;
 	setupKeyBindings();
 
 	sf::String fpsStr("", sf::Font::GetDefaultFont(), 15);

@@ -8,6 +8,7 @@ float G::clip_near = 1.0;
 float G::clip_far = 10.0;
 
 World G::gameScreen;
+Menu G::menuScreen;
 Screen *G::curScreen = NULL;
 
 sf::Vector2i G::getMouseMoveDelta(sf::Event e) {

@@ -4,6 +4,7 @@
 #include "includes.h"
 #include "screen.h"
 #include "world.h"
+#include "menu.h"
 
 class G {
 public:
@@ -22,6 +23,7 @@ public:
 	static sf::Clock clock;
 
 	static World gameScreen;
+	static Menu menuScreen;
 	static Screen *curScreen;
 };
 

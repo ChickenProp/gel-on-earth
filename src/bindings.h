@@ -15,4 +15,7 @@ void strafeBack(sf::Event, bool);
 void strafeLeft(sf::Event, bool);
 void strafeRight(sf::Event, bool);
 
+void setScreen_game(sf::Event, bool);
+void setScreen_menu(sf::Event, bool);
+
 #endif

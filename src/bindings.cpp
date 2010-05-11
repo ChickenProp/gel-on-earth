@@ -7,10 +7,15 @@ void setupKeyBindings() {
 
 	e.Type = sf::Event::Closed;
 	G::gameScreen.keymap.bindEvent(e, &quitGame);
+	G::menuScreen.keymap.bindEvent(e, &quitGame);
 
 	e.Type = sf::Event::KeyPressed;
 	e.Key.Code = sf::Key::Escape;
-	G::gameScreen.keymap.bindEvent(e, &quitGame);
+	G::gameScreen.keymap.bindEvent(e, &setScreen_menu);
+	G::menuScreen.keymap.bindEvent(e, &setScreen_game);
+
+	e.Key.Code = sf::Key::Q;
+	G::menuScreen.keymap.bindEvent(e, &quitGame);
 
 	e.Type = sf::Event::MouseMoved;
 	G::gameScreen.keymap.bindEvent(e, &lookAround);
@@ -43,4 +48,11 @@ void strafeLeft(sf::Event, bool) {
 }
 void strafeRight(sf::Event, bool) {
 	G::gameScreen.player.strafe(0, 1);
+}
+
+void setScreen_game(sf::Event, bool) {
+	G::curScreen = &G::gameScreen;
+}
+void setScreen_menu(sf::Event, bool) {
+	G::curScreen = &G::menuScreen;
 }
