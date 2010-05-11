@@ -24,6 +24,11 @@ void setupKeyBindings() {
 	G::gameScreen.keymap.bindKey(sf::Key::Right, &strafeRight);
 	G::gameScreen.keymap.bindKey(sf::Key::Down, &strafeBack);
 	G::gameScreen.keymap.bindKey(sf::Key::Up, &strafeFwd);
+
+	G::gameScreen.keymap.bindKey(sf::Key::A, &strafeLeft);
+	G::gameScreen.keymap.bindKey(sf::Key::E, &strafeRight);
+	G::gameScreen.keymap.bindKey(sf::Key::O, &strafeBack);
+	G::gameScreen.keymap.bindKey(sf::Key::Comma, &strafeFwd);
 }
 
 void quitGame(sf::Event ev, bool real) {
