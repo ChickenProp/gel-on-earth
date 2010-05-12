@@ -2,16 +2,17 @@
 
 sf::RenderWindow G::window;
 sf::Clock G::clock;
-int G::window_width = 640;
-int G::window_height = 480;
-float G::clip_near = 1.0;
-float G::clip_far = 10.0;
+int G::windowWidth = 640;
+int G::windowHeight = 480;
+sf::Vector2f G::windowCentre (320.0f, 240.0f);
+float G::clipNear = 1.0;
+float G::clipFar = 10.0;
 
 World G::gameScreen;
 Menu G::menuScreen;
 Screen *G::curScreen = NULL;
 
 sf::Vector2i G::getMouseMoveDelta(sf::Event e) {
-	return sf::Vector2i(window_width/2 - e.MouseMove.X,
-	                    window_height/2 - e.MouseMove.Y);
+	return sf::Vector2i((int) windowCentre.x - e.MouseMove.X,
+	                    (int) windowCentre.y - e.MouseMove.Y);
 }

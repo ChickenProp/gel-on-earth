@@ -7,12 +7,12 @@
 
 int main()
 {
-	G::window.Create(sf::VideoMode(G::window_width, G::window_height, 32),
+	G::window.Create(sf::VideoMode(G::windowWidth, G::windowHeight, 32),
 	                 "Gel on Earth");
 	//G::window.PreserveOpenGLStates(true);
 	G::window.ShowMouseCursor(false);
-	int cX = G::window_width/2;
-	int cY = G::window_height/2;
+	int cX = (int) G::windowCentre.x;
+	int cY = (int) G::windowCentre.y;
 	G::window.SetCursorPosition(cX, cY);
 
 	G::curScreen = &G::menuScreen;
@@ -44,8 +44,8 @@ int main()
 			   wouldn't be necessary. :/
 			*/
 			if (ev.Type == sf::Event::MouseMoved) {
-				int cX = G::window_width/2;
-				int cY = G::window_height/2;
+				int cX = (int) G::windowCentre.x;
+				int cY = (int) G::windowCentre.y;
 				G::window.SetCursorPosition(cX, cY);
 			}
 
@@ -73,13 +73,13 @@ int main()
 
 		GLCheck( glMatrixMode(GL_PROJECTION) );
 		GLCheck( glLoadIdentity() );
-		GLCheck( gluPerspective(90., G::window_width/G::window_height,
-		                        G::clip_near, G::clip_far) );
+		GLCheck( gluPerspective(90., G::windowWidth/G::windowHeight,
+		                        G::clipNear, G::clipFar) );
 
 		GLCheck( glMatrixMode(GL_MODELVIEW) );
 		GLCheck( glLoadIdentity() );
 
-		GLCheck( glOrtho(-1, 1, -1, 1, G::clip_near, G::clip_far) );
+		GLCheck( glOrtho(-1, 1, -1, 1, G::clipNear, G::clipFar) );
 
 		G::curScreen->draw();
 

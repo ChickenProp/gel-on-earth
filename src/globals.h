@@ -9,10 +9,11 @@
 class G {
 public:
 	static sf::RenderWindow window;
-	static int window_width;
-	static int window_height;
-	static float clip_near;
-	static float clip_far;
+	static int windowWidth;
+	static int windowHeight;
+	static sf::Vector2f windowCentre;
+	static float clipNear;
+	static float clipFar;
 
 	/* We use this because SFML doesn't provide delta coordinates in the
 	   MouseMove event. It relies on us resetting the cursor back to the
