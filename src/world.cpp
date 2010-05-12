@@ -3,17 +3,19 @@
 
 World::World() {
 	wall.LoadFromFile("media/wall.tga");
+	rotate = 0.0f;
 }
 
 void World::update() {
 	player.update();
+	rotate += 1.0f;
 }
 
 void World::draw() {
 	player.setupCamera();
 
 	glTranslatef(0, 0, 5);
-	glRotatef(30*G::clock.GetElapsedTime(), 0, 1, 0);
+	glRotatef(rotate, 0, 1, 0);
 	float vertices[] = {
 		-0.2, +0.2, -0.2,
 		-0.2, -0.2, -0.2,

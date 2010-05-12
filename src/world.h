@@ -11,6 +11,8 @@ public:
 
 	Player player;
 
+	float rotate;
+
 	sf::Image wall;
 
 	void update();
