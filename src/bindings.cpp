@@ -15,6 +15,7 @@ void setupKeyBindings() {
 	G::menuScreen.keymap.bindEvent(e, &setScreen_game);
 
 	e.Key.Code = sf::Key::Q;
+	G::gameScreen.keymap.bindEvent(e, &quitGame);
 	G::menuScreen.keymap.bindEvent(e, &quitGame);
 
 	e.Type = sf::Event::MouseMoved;
