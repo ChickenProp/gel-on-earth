@@ -81,6 +81,8 @@ int main()
 
 		GLCheck( glOrtho(-1, 1, -1, 1, G::clipNear, G::clipFar) );
 
+		GLCheck( glDepthFunc(GL_LESS) );
+
 		G::curScreen->draw();
 
 		FPS::Update();
