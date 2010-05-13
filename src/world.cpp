@@ -12,11 +12,14 @@ void World::update() {
 }
 
 void World::draw() {
-	player.setupCamera();
+	float floor_vertices[] = {
+		-10, 0, +10,
+		-10, 0, -10,
+		+10, 0, -10,
+		+10, 0, +10,
+	};
 
-	glTranslatef(0, 0, 5);
-	glRotatef(rotate, 0, 1, 0);
-	float vertices[] = {
+	float cube_vertices[] = {
 		-0.2, +0.2, -0.2,
 		-0.2, -0.2, -0.2,
 		+0.2, -0.2, -0.2,
@@ -27,7 +30,7 @@ void World::draw() {
 		+0.2, +0.2, +0.2,
 	};
 
-	unsigned short texCoords[] = {
+	unsigned short cube_texCoords[] = {
 		0, 0,
 		0, 1,
 		1, 1,
@@ -38,7 +41,7 @@ void World::draw() {
 		0, 0,
 	};
 
-	unsigned short faces[] = {
+	unsigned short cube_faces[] = {
 		0, 1, 2, 3, // front
 		0, 4, 5, 1, // left
 		0, 3, 7, 4, // top
@@ -47,28 +50,39 @@ void World::draw() {
 		4, 7, 6, 5, // back
 	};
 
-	unsigned short edges[] = {
+	unsigned short cube_edges[] = {
 		0,1, 1,2, 2,3, 3,0,
 		4,7, 7,6, 6,5, 5,4,
 		0,4, 1,5, 2,6, 3,7,
 	};
 
+	player.setupCamera();
+
+	GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );
+	GLCheck( glColor3f(0.5, 0.5, 0.5) );
+
+	GLCheck( glEnableClientState(GL_VERTEX_ARRAY) );
+	GLCheck( glVertexPointer(3, GL_FLOAT, 0, floor_vertices) );
+	GLCheck( glDrawArrays(GL_QUADS, 0, 4) );
+
 	wall.Bind();
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, vertices);
+	GLCheck( glTranslatef(0, 0.2, 5) );
+	GLCheck( glRotatef(rotate, 0, 1, 0) );
 
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glTexCoordPointer(2, GL_SHORT, 0, texCoords);
+	GLCheck( glVertexPointer(3, GL_FLOAT, 0, cube_vertices) );
 
-	glColor3f(1, 1, 1);
-	glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, faces);
+	GLCheck( glEnableClientState(GL_TEXTURE_COORD_ARRAY) );
+	GLCheck( glTexCoordPointer(2, GL_SHORT, 0, cube_texCoords) );
 
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	GLCheck( glColor3f(1, 1, 1) );
+	GLCheck( glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, cube_faces) );
 
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glColor3f(0, 0, 0);
-	glDrawElements(GL_LINES, 24, GL_UNSIGNED_SHORT, edges);
+	GLCheck( glDisableClientState(GL_TEXTURE_COORD_ARRAY) );
 
-	glDisableClientState(GL_VERTEX_ARRAY);
+	GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );
+	GLCheck( glColor3f(0, 0, 0) );
+	GLCheck( glDrawElements(GL_LINES, 24, GL_UNSIGNED_SHORT, cube_edges) );
+
+	GLCheck( glDisableClientState(GL_VERTEX_ARRAY) );
 }
