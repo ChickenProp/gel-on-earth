@@ -1,2 +1,9 @@
-Program("#gel-on-earth", Glob('*.cpp'),
-        LIBS=['GL', 'GLU', 'sfml-system', 'sfml-window', 'sfml-graphics'])
+env = Environment()
+
+debug = ARGUMENTS.get('debug', 0)
+if int(debug):
+    env.Append(CCFLAGS = '-g')
+    env.Append(CPPDEFINES = 'DEBUG')
+
+env.Program("#gel-on-earth", Glob('*.cpp'),
+            LIBS=['GL', 'GLU', 'sfml-system', 'sfml-window', 'sfml-graphics'])
