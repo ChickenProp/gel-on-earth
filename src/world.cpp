@@ -1,5 +1,6 @@
 #include "world.h"
 #include "globals.h"
+#include "vertex.h"
 
 World::World() {
 	wall.LoadFromFile("media/wall.tga");
@@ -19,26 +20,15 @@ void World::draw() {
 		+10, 0, +10,
 	};
 
-	float cube_vertices[] = {
-		-0.2, +0.2, -0.2,
-		-0.2, -0.2, -0.2,
-		+0.2, -0.2, -0.2,
-		+0.2, +0.2, -0.2,
-		-0.2, +0.2, +0.2,
-		-0.2, -0.2, +0.2,
-		+0.2, -0.2, +0.2,
-		+0.2, +0.2, +0.2,
-	};
-
-	unsigned short cube_texCoords[] = {
-		0, 0,
-		0, 1,
-		1, 1,
-		1, 0,
-		1, 0,
-		1, 1,
-		0, 1,
-		0, 0,
+	Vertex cube_vertices[] = {
+		Vertex( -0.2, +0.2, -0.2, 0, 0 ),
+		Vertex( -0.2, -0.2, -0.2, 0, 1 ),
+		Vertex( +0.2, -0.2, -0.2, 1, 1 ),
+		Vertex( +0.2, +0.2, -0.2, 1, 0 ),
+		Vertex( -0.2, +0.2, +0.2, 1, 0 ),
+		Vertex( -0.2, -0.2, +0.2, 1, 1 ),
+		Vertex( +0.2, -0.2, +0.2, 0, 1 ),
+		Vertex( +0.2, +0.2, +0.2, 0, 0 ),
 	};
 
 	unsigned short cube_faces[] = {
@@ -70,10 +60,12 @@ void World::draw() {
 	GLCheck( glTranslatef(0, 0.2, 5) );
 	GLCheck( glRotatef(rotate, 0, 1, 0) );
 
-	GLCheck( glVertexPointer(3, GL_FLOAT, 0, cube_vertices) );
+	GLCheck( glVertexPointer(3, GL_FLOAT, cube_vertices[0].stride,
+	                         &cube_vertices[0].x) );
 
 	GLCheck( glEnableClientState(GL_TEXTURE_COORD_ARRAY) );
-	GLCheck( glTexCoordPointer(2, GL_SHORT, 0, cube_texCoords) );
+	GLCheck( glTexCoordPointer(2, GL_FLOAT, cube_vertices[0].stride,
+	                           &cube_vertices[0].s) );
 
 	GLCheck( glColor3f(1, 1, 1) );
 	GLCheck( glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, cube_faces) );
