@@ -85,6 +85,8 @@ int main()
 
 		G::curScreen->draw();
 
+		GLCheck( glDepthFunc(GL_ALWAYS) );
+
 		FPS::Update();
 		sprintf(fpsCStr, "%4d fps", FPS::GetFPS());
 		fpsStr.SetText(fpsCStr);
