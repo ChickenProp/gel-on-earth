@@ -14,14 +14,15 @@ public:
 
 	static int stride;
 
-Vertex()
-	: x(0), y(0), z(0), s(0), t(0) {}
+	Vertex() : x(0), y(0), z(0), s(0), t(0) {}
 
-Vertex(float _x, float _y, float _z)
-	: x(_x), y(_y), z(_z), s(0), t(0) {}
+	Vertex(float _x, float _y, float _z)
+		: x(_x), y(_y), z(_z), s(0), t(0) {}
 
-Vertex(float _x, float _y, float _z, float _s, float _t)
-	: x(_x), y(_y), z(_z), s(_s), t(_t) {}
+	Vertex(float _x, float _y, float _z, float _s, float _t)
+		: x(_x), y(_y), z(_z), s(_s), t(_t) {}
+
+	void setPointers();
 };
 
 #endif
