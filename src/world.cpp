@@ -57,7 +57,7 @@ void World::draw() {
 
 	wall.Bind();
 
-	GLCheck( glTranslatef(0, 0.2, 5) );
+	GLCheck( glTranslatef(0, 0.21, 5) );
 	GLCheck( glRotatef(rotate, 0, 1, 0) );
 
 	GLCheck( glVertexPointer(3, GL_FLOAT, cube_vertices[0].stride,
