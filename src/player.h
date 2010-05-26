@@ -3,21 +3,22 @@
 
 #include "includes.h"
 #include "util.h"
+#include "vector.h"
 
 class Player {
 public:
 	Player();
 
-	sf::Vector3f pos;
-	sf::Vector3f vel;
-	sf::Vector3f orientation;
+	ph::vec3f pos;
+	ph::vec3f vel;
+	ph::vec3f orientation;
 
 	void strafe(float fwd, float side);
 
 	void update();
 
 	void setupCamera();
-	sf::Vector3f changeOrientationWithMouse(int x, int y);
+	ph::vec3f changeOrientationWithMouse(int x, int y);
 };
 
 #endif

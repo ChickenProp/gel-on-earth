@@ -1,19 +1,19 @@
 #include "player.h"
 
 Player::Player() {
-	pos = sf::Vector3f(0,0,0);
-	vel = sf::Vector3f(0,0,0);
+	pos = ph::vec3f(0,0,0);
+	vel = ph::vec3f(0,0,0);
 	orientation = vSpherical(1, 3, 90);
 }
 
 void Player::update() {
 	pos += vel;
-	vel = sf::Vector3f(0,0,0);
+	vel = ph::vec3f(0,0,0);
 }
 
 void Player::strafe(float fwd, float side) {
-	sf::Vector3f front = vNormalize(vProjectXY(orientation));
-	sf::Vector3f left = vCross(front, sf::Vector3f(0, 0, 1));
+	ph::vec3f front = orientation.projectXY().normalize();
+	ph::vec3f left = front.cross(ph::vec3f(0,0,1));
 
 	vel += (front*fwd + left*side)/50.0f;
 }
@@ -26,9 +26,9 @@ void Player::setupCamera() {
 	glTranslatef(-pos.x, -pos.z - 1, -pos.y);
 }
 
-sf::Vector3f Player::changeOrientationWithMouse(int x, int y) {
-	orientation = vSpherical(1,
-	                         clampd(vTheta(orientation)+y, -60, 60),
-	                         vPhi(orientation)+x);
+ph::vec3f Player::changeOrientationWithMouse(int x, int y) {
+	orientation = ph::vec3f::spherical(
+	        1, orientation.phi()+x, clampd(orientation.theta()+y, -60, 60)
+	        );
 	return orientation;
 }
