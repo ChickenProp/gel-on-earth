@@ -3,7 +3,7 @@
 Player::Player() {
 	pos = ph::vec3f(0,0,0);
 	vel = ph::vec3f(0,0,0);
-	orientation = vSpherical(1, 3, 90);
+	orientation = ph::vec3f::spherical(1, 90, 3);
 }
 
 void Player::update() {
