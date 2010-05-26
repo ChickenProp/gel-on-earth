@@ -1,6 +1,5 @@
 #include "includes.h"
 #include "globals.h"
-#include "util.h"
 #include "bindings.h"
 #include "fps.h"
 #include "world.h"

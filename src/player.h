@@ -2,7 +2,6 @@
 #define _PLAYER_H
 
 #include "includes.h"
-#include "util.h"
 #include "vector.h"
 
 class Player {

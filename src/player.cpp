@@ -28,7 +28,7 @@ void Player::setupCamera() {
 
 ph::vec3f Player::changeOrientationWithMouse(int x, int y) {
 	orientation = ph::vec3f::spherical(
-	        1, orientation.phi()+x, clampd(orientation.theta()+y, -60, 60)
-	        );
+	        1, orientation.phi()+x,
+		ph::clampf(orientation.theta()+y, -60, 60) );
 	return orientation;
 }

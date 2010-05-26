@@ -2,6 +2,7 @@
 #define PH_VECTOR_H
 
 #include "math.h"
+#include "math-util.h"
 
 namespace ph {
 
@@ -111,8 +112,8 @@ public:
 	vec3f (float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}
 
 	static vec3f spherical(float r, float phi, float theta) {
-		float p = phi * M_PI / 180.f;
-		float t = theta * M_PI / 180.f;
+		float p = deg2rad(phi);
+		float t = deg2rad(theta);
 		return vec3f(r*cos(p)*cos(t),
 		             r*sin(p)*cos(t),
 		             r*sin(t));
@@ -144,11 +145,11 @@ public:
 	}
 
 	float phi() const {
-		return atan2(y, x) * 180.f / M_PI;
+		return rad2deg(atan2(y, x));
 	}
 
 	float theta() const {
-		return atan2(z, projectXY().length()) * 180.f / M_PI;
+		return rad2deg(atan2(z, projectXY().length()));
 	}
 
 	vec3f operator+ (const vec3f &v) const {
