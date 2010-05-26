@@ -11,9 +11,9 @@ public:
 
 	Player player;
 
+	//Just for the box, which I'll remove at some point.
 	float rotate;
-
-	sf::Image wall;
+	sf::Image wallImage;
 
 	void update();
 	void draw();

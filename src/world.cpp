@@ -3,7 +3,7 @@
 #include "vertex.h"
 
 World::World() {
-	wall.LoadFromFile("media/wall.tga");
+	wallImage.LoadFromFile("media/wall.tga");
 	rotate = 0.0f;
 }
 
@@ -55,7 +55,7 @@ void World::draw() {
 	GLCheck( glVertexPointer(3, GL_FLOAT, 0, floor_vertices) );
 	GLCheck( glDrawArrays(GL_QUADS, 0, 4) );
 
-	wall.Bind();
+	wallImage.Bind();
 
 	GLCheck( glTranslatef(0, 0.21, 5) );
 	GLCheck( glRotatef(rotate, 0, 1, 0) );
