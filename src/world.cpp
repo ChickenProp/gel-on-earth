@@ -5,6 +5,12 @@
 World::World() {
 	wallImage.LoadFromFile("media/wall.tga");
 	rotate = 0.0f;
+
+	ph::vec3f corners[] = { ph::vec3f(-10, -10, +10),
+				ph::vec3f(-10, -10, 0),
+				ph::vec3f(-10, +10, 0),
+				ph::vec3f(-10, +10, +10) };
+	walls.push_back(new Wall(corners));
 }
 
 void World::update() {
@@ -21,13 +27,13 @@ void World::draw() {
 	};
 
 	Vertex cube_vertices[] = {
-		Vertex( -0.2, +0.2, -0.2, 0, 0 ),
+		Vertex( -0.2, -0.2, +0.2, 0, 0 ),
 		Vertex( -0.2, -0.2, -0.2, 0, 1 ),
 		Vertex( +0.2, -0.2, -0.2, 1, 1 ),
-		Vertex( +0.2, +0.2, -0.2, 1, 0 ),
+		Vertex( +0.2, -0.2, +0.2, 1, 0 ),
 		Vertex( -0.2, +0.2, +0.2, 1, 0 ),
-		Vertex( -0.2, -0.2, +0.2, 1, 1 ),
-		Vertex( +0.2, -0.2, +0.2, 0, 1 ),
+		Vertex( -0.2, +0.2, -0.2, 1, 1 ),
+		Vertex( +0.2, +0.2, -0.2, 0, 1 ),
 		Vertex( +0.2, +0.2, +0.2, 0, 0 ),
 	};
 
@@ -57,6 +63,8 @@ void World::draw() {
 
 	wallImage.Bind();
 
+	GLCheck( glPushMatrix() );
+
 	GLCheck( glTranslatef(0, 0.21, 5) );
 	GLCheck( glRotatef(rotate, 0, 1, 0) );
 
@@ -69,9 +77,16 @@ void World::draw() {
 
 	GLCheck( glDisableClientState(GL_TEXTURE_COORD_ARRAY) );
 
-	GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );
 	GLCheck( glColor3f(0, 0, 0) );
 	GLCheck( glDrawElements(GL_LINES, 24, GL_UNSIGNED_SHORT, cube_edges) );
 
-	GLCheck( glDisableClientState(GL_VERTEX_ARRAY) );
+	GLCheck( glPopMatrix() );
+
+	GLCheck( glColor3f(1, 1, 1) );
+	GLCheck( glEnableClientState(GL_TEXTURE_COORD_ARRAY) );
+
+	walls[0]->draw();	
+
+	GLCheck( glDisableClientState(GL_TEXTURE_COORD_ARRAY) );
+ 	GLCheck( glDisableClientState(GL_VERTEX_ARRAY) );
 }

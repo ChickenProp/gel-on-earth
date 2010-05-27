@@ -4,12 +4,15 @@
 #include "includes.h"
 #include "screen.h"
 #include "player.h"
+#include "wall.h"
 
 class World : public Screen {
 public:
 	World();
 
 	Player player;
+
+	std::vector<Wall*> walls;
 
 	//Just for the box, which I'll remove at some point.
 	float rotate;

@@ -1,9 +1,14 @@
 #ifndef _VERTEX_H
 #define _VERTEX_H
 
+#include "vector.h"
+
 class Vertex {
 public:
-	float x, y, z;
+	// Intuitively, x and y are parallel to the ground, and z is "up".
+	// OpenGL has y being "up". So I swap the position of y and z, so now
+	// it works like I expect.
+	float x, z, y;
 	float s, t;
 
 	/* Apparently a size-multiple of 32 bytes is good. Floats tend to be 4.
@@ -21,6 +26,9 @@ public:
 
 	Vertex(float _x, float _y, float _z, float _s, float _t)
 		: x(_x), y(_y), z(_z), s(_s), t(_t) {}
+
+	Vertex(ph::vec3f v, float _s, float _t)
+		: x(v.x), y(v.y), z(v.z), s(_s), t(_t) {}
 
 	void setPointers();
 };
