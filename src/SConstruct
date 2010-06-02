@@ -6,4 +6,5 @@ if int(debug):
     env.Append(CPPDEFINES = 'DEBUG')
 
 env.Program("#gel-on-earth", Glob('*.cpp'),
-            LIBS=['GL', 'GLU', 'sfml-system', 'sfml-window', 'sfml-graphics'])
+            LIBS=['GL', 'GLU', 'sfml-system', 'sfml-window', 'sfml-graphics',
+                  'BulletDynamics'])

@@ -8,6 +8,8 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
+#include <btBulletDynamicsCommon.h>
+
 #include <iostream>
 #include <map>
 
