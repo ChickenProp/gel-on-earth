@@ -6,6 +6,26 @@
 
 int main()
 {
+	// Build the broadphase
+	btBroadphaseInterface* broadphase = new btDbvtBroadphase();
+ 
+	// Set up the collision configuration and dispatcher
+	btDefaultCollisionConfiguration* collisionConfiguration
+		= new btDefaultCollisionConfiguration();
+	btCollisionDispatcher* dispatcher
+		= new btCollisionDispatcher(collisionConfiguration);
+ 
+	// The actual physics solver
+	btSequentialImpulseConstraintSolver* solver
+		= new btSequentialImpulseConstraintSolver;
+ 
+	// The world.
+	btDiscreteDynamicsWorld* physics
+		= new btDiscreteDynamicsWorld(dispatcher, broadphase, solver,
+		                              collisionConfiguration);
+	physics->setGravity(btVector3(0,-10,0));
+
+
 	G::window.Create(sf::VideoMode(G::windowWidth, G::windowHeight, 32),
 	                 "Gel on Earth");
 	//G::window.PreserveOpenGLStates(true);

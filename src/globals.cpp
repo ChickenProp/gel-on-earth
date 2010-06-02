@@ -12,6 +12,8 @@ World G::gameScreen;
 Menu G::menuScreen;
 Screen *G::curScreen = NULL;
 
+btDiscreteDynamicsWorld *physics = NULL;
+
 sf::Vector2i G::getMouseMoveDelta(sf::Event e) {
 	return sf::Vector2i((int) windowCentre.x - e.MouseMove.X,
 	                    (int) windowCentre.y - e.MouseMove.Y);

@@ -26,6 +26,8 @@ public:
 	static World gameScreen;
 	static Menu menuScreen;
 	static Screen *curScreen;
+
+	static btDiscreteDynamicsWorld *physics;
 };
 
 #endif
