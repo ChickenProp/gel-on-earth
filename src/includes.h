@@ -13,6 +13,8 @@
 #include <iostream>
 #include <map>
 
+#include "ph-utils/vector.h"
+
 // I took this from SFML/Graphics/GraphicsContext.hpp, but it doesn't seem
 // to be exposed at all. So I just copied it.
 #ifdef DEBUG
