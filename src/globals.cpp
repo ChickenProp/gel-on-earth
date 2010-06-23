@@ -14,6 +14,9 @@ Screen *G::curScreen = NULL;
 
 btDiscreteDynamicsWorld *G::physics = NULL;
 
+btCollisionShape* G::Shapes::ground
+	= new btStaticPlaneShape(btVector3(0,1,0), 0);
+
 sf::Vector2i G::getMouseMoveDelta(sf::Event e) {
 	return sf::Vector2i((int) windowCentre.x - e.MouseMove.X,
 	                    (int) windowCentre.y - e.MouseMove.Y);

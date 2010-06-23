@@ -28,6 +28,10 @@ public:
 	static Screen *curScreen;
 
 	static btDiscreteDynamicsWorld *physics;
+
+	struct Shapes {
+		static btCollisionShape *ground;
+	};
 };
 
 #endif
