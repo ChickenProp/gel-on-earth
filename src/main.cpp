@@ -20,10 +20,9 @@ int main()
 		= new btSequentialImpulseConstraintSolver;
  
 	// The world.
-	btDiscreteDynamicsWorld* physics
-		= new btDiscreteDynamicsWorld(dispatcher, broadphase, solver,
-		                              collisionConfiguration);
-	physics->setGravity(btVector3(0,-10,0));
+	G::physics = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver,
+	                                         collisionConfiguration);
+	G::physics->setGravity(btVector3(0,-10,0));
 
 
 	G::window.Create(sf::VideoMode(G::windowWidth, G::windowHeight, 32),
@@ -113,6 +112,12 @@ int main()
 
 		G::window.Display();
 	}
+
+	delete broadphase;
+	delete collisionConfiguration;
+	delete dispatcher;
+	delete solver;
+	delete G::physics;
 
 	return 0;
 }
