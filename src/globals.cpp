@@ -8,8 +8,8 @@ sf::Vector2f G::windowCentre (320.0f, 240.0f);
 float G::clipNear = 1.0;
 float G::clipFar = 10.0;
 
-World G::gameScreen;
-Menu G::menuScreen;
+World *G::gameScreen = NULL;
+Menu *G::menuScreen = NULL;
 Screen *G::curScreen = NULL;
 
 btDiscreteDynamicsWorld *G::physics = NULL;

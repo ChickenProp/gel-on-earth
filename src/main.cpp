@@ -33,7 +33,9 @@ int main()
 	int cY = (int) G::windowCentre.y;
 	G::window.SetCursorPosition(cX, cY);
 
-	G::curScreen = &G::menuScreen;
+	G::gameScreen = new World();
+	G::menuScreen = new Menu();
+	G::curScreen = G::menuScreen;
 	setupKeyBindings();
 
 	sf::String fpsStr("", sf::Font::GetDefaultFont(), 15);

@@ -23,8 +23,8 @@ public:
 
 	static sf::Clock clock;
 
-	static World gameScreen;
-	static Menu menuScreen;
+	static World *gameScreen;
+	static Menu *menuScreen;
 	static Screen *curScreen;
 
 	static btDiscreteDynamicsWorld *physics;
