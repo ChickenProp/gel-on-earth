@@ -8,7 +8,7 @@ Menu::Menu() {
 }
 
 void Menu::draw() {
-	G::gameScreen.draw();
+	G::gameScreen->draw();
 	// Don't draw the menu behind the world.
 	GLCheck( glDepthFunc(GL_ALWAYS) );
 	G::window.Draw(textReturn);
