@@ -4,7 +4,8 @@
 #include "includes.h"
 #include "screen.h"
 #include "player.h"
-#include "wall.h"
+
+class Wall;
 
 class World : public Screen {
 public:

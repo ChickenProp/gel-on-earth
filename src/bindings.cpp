@@ -1,5 +1,9 @@
 #include "bindings.h"
 
+#include "globals.h"
+#include "world.h"
+#include "menu.h"
+
 void setupKeyBindings() {
 	sf::Event e;
 

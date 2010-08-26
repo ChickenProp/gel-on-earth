@@ -2,9 +2,10 @@
 #define _GLOBALS_H
 
 #include "includes.h"
-#include "screen.h"
-#include "world.h"
-#include "menu.h"
+
+class Screen;
+class World;
+class Menu;
 
 class G {
 public:

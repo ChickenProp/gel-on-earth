@@ -3,6 +3,7 @@
 #include "bindings.h"
 #include "fps.h"
 #include "world.h"
+#include "menu.h"
 
 int main()
 {

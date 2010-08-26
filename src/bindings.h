@@ -2,7 +2,6 @@
 #define _BINDINGS_H
 
 #include "includes.h"
-#include "globals.h"
 
 void setupKeyBindings();
 

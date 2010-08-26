@@ -1,8 +1,10 @@
 #include "menu.h"
 #include "globals.h"
+#include "world.h"
 
 Menu::Menu() {
-	textReturn = sf::String("Return to game", sf::Font::GetDefaultFont(), 30);
+	textReturn = sf::String("Return to game",
+	                        sf::Font::GetDefaultFont(), 30);
 	textReturn.SetColor(sf::Color(0,0,0));
 	textReturn.Move(G::windowCentre);
 }

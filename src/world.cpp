@@ -1,6 +1,7 @@
 #include "world.h"
 #include "globals.h"
 #include "vertex.h"
+#include "wall.h"
 
 World::World() {
 	wallImage.LoadFromFile("media/wall.tga");
