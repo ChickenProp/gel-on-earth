@@ -11,6 +11,11 @@ World::World() {
 				ph::vec3f(-10, +10, 0),
 				ph::vec3f(-10, +10, +10) };
 	walls.push_back(new Wall(corners));
+
+	btDefaultMotionState *ms
+		= new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),
+		                                       btVector3(0,0,0)));
+	
 }
 
 void World::update() {

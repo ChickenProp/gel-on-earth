@@ -12,6 +12,8 @@ public:
 
 	Player player;
 
+	btRigidBody *groundBody;
+
 	std::vector<Wall*> walls;
 
 	//Just for the box, which I'll remove at some point.
