@@ -16,10 +16,16 @@ World::World() {
 	btDefaultMotionState *ms
 		= new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),
 		                                       btVector3(0,0,0)));
+	btRigidBody::btRigidBodyConstructionInfo
+		construct(0, ms, G::Shapes::ground, btVector3(0, 0, 0));
+	btRigidBody *groundBody = new btRigidBody(construct);
+
+	G::physics->addRigidBody(groundBody);
 	
 }
 
 void World::update() {
+	G::physics->stepSimulation(1/60.f, 10);
 	player.update();
 	rotate += 1.0f;
 }
