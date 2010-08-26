@@ -15,6 +15,7 @@ public:
 	static sf::Vector2f windowCentre;
 	static float clipNear;
 	static float clipFar;
+	static float framerate;
 
 	/* We use this because SFML doesn't provide delta coordinates in the
 	   MouseMove event. It relies on us resetting the cursor back to the

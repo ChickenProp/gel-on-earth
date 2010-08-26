@@ -30,7 +30,7 @@ World::~World () {
 }
 
 void World::update() {
-	G::physics->stepSimulation(1/60.f, 10);
+	G::physics->stepSimulation(1/G::framerate, 10);
 	player.update();
 	rotate += 1.0f;
 }

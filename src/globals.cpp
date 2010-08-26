@@ -1,12 +1,14 @@
 #include "globals.h"
 
 sf::RenderWindow G::window;
-sf::Clock G::clock;
 int G::windowWidth = 640;
 int G::windowHeight = 480;
 sf::Vector2f G::windowCentre (320.0f, 240.0f);
 float G::clipNear = 1.0;
 float G::clipFar = 10.0;
+float G::framerate = 60;
+
+sf::Clock G::clock;
 
 World *G::gameScreen = NULL;
 Menu *G::menuScreen = NULL;

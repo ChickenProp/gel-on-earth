@@ -33,6 +33,7 @@ int main()
 	int cX = (int) G::windowCentre.x;
 	int cY = (int) G::windowCentre.y;
 	G::window.SetCursorPosition(cX, cY);
+	G::window.SetFramerateLimit(G::framerate);
 
 	G::gameScreen = new World();
 	G::menuScreen = new Menu();
