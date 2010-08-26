@@ -116,6 +116,9 @@ int main()
 		G::window.Display();
 	}
 
+	delete G::gameScreen;
+	delete G::menuScreen;
+
 	delete broadphase;
 	delete collisionConfiguration;
 	delete dispatcher;

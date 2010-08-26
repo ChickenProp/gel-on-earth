@@ -18,10 +18,15 @@ World::World() {
 		                                       btVector3(0,0,0)));
 	btRigidBody::btRigidBodyConstructionInfo
 		construct(0, ms, G::Shapes::ground, btVector3(0, 0, 0));
-	btRigidBody *groundBody = new btRigidBody(construct);
+	groundBody = new btRigidBody(construct);
 
 	G::physics->addRigidBody(groundBody);
-	
+}
+
+World::~World () {
+	G::physics->removeRigidBody(groundBody);
+	delete groundBody->getMotionState();
+	delete groundBody;
 }
 
 void World::update() {

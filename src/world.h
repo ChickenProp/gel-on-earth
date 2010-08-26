@@ -10,6 +10,7 @@ class Wall;
 class World : public Screen {
 public:
 	World();
+	~World();
 
 	Player player;
 
