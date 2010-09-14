@@ -23,7 +23,7 @@ int main()
 	// The world.
 	G::physics = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver,
 	                                         collisionConfiguration);
-	G::physics->setGravity(btVector3(0,-10,0));
+	G::physics->setGravity(btVector3(0, 0, -10));
 
 
 	G::window.Create(sf::VideoMode(G::windowWidth, G::windowHeight, 32),

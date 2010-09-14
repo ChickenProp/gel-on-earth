@@ -6,6 +6,10 @@
 class Player {
 public:
 	Player();
+	~Player();
+
+	btCollisionShape* shape;
+	btRigidBody* body;
 
 	ph::vec3f pos;
 	ph::vec3f vel;
