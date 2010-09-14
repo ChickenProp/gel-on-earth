@@ -10,7 +10,7 @@ Player::Player() {
 
 	btDefaultMotionState* ms =
                 new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),
-		                                     btVector3(0,0,10)));
+		                                     btVector3(0,0,50)));
 
 	btScalar mass = 1;
 	btVector3 inertia(0, 0, 0);
