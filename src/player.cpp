@@ -30,21 +30,26 @@ Player::~Player() {
 }
 
 void Player::update() {
-	pos += vel;
+	applyFriction();
 
 	btTransform trans;
 	body->getMotionState()->getWorldTransform(trans);
+	pos.x = trans.getOrigin().getX();
+	pos.y = trans.getOrigin().getY();
 	pos.z = trans.getOrigin().getZ();
-	printf("height: %f\n", pos.z);
+}
 
-	vel = ph::vec3f(0,0,0);
+void Player::applyFriction() {
+	ph::vec3f vel = body->getLinearVelocity();
+	vel.z = 0;
+	body->applyCentralImpulse(-vel/2);
 }
 
 void Player::strafe(float fwd, float side) {
 	ph::vec3f front = orientation.projectXY().normalize();
 	ph::vec3f left = front.cross(ph::vec3f(0,0,1));
 
-	vel += (front*fwd + left*side)/50.0f;
+	body->applyCentralImpulse(front*fwd + left*side);
 }
 
 void Player::setupCamera() {

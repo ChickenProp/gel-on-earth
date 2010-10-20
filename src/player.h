@@ -19,6 +19,8 @@ public:
 
 	void update();
 
+	void applyFriction();
+
 	void setupCamera();
 	ph::vec3f changeOrientationWithMouse(int x, int y);
 };
