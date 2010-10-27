@@ -10,7 +10,7 @@ Player::Player() {
 
 	btDefaultMotionState* ms =
                 new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),
-		                                     btVector3(0,0,50)));
+		                                     btVector3(0,0,1)));
 
 	btScalar mass = 1;
 	btVector3 inertia(0, 0, 0);
@@ -30,23 +30,27 @@ Player::~Player() {
 }
 
 void Player::update() {
-	applyFriction();
-
 	btTransform trans;
 	body->getMotionState()->getWorldTransform(trans);
 	pos.x = trans.getOrigin().getX();
 	pos.y = trans.getOrigin().getY();
 	pos.z = trans.getOrigin().getZ();
+
+	printf("pos: %f, %f, %f\n", pos.x, pos.y, pos.z);
+
+	ph::vec3f v = body->getLinearVelocity();
+	printf("vel: %f, %f, %f\n", v.x, v.y, v.z);
+
+	ph::vec3f f = body->getTotalForce();
+	printf("force: %f, %f, %f\n", f.x, f.y, f.z);
+
+	applyFriction();
 }
 
 void Player::applyFriction() {
 	ph::vec3f v = body->getLinearVelocity();
-	printf("vel: %f, %f, %f\n", v.x, v.y, v.z);
 	v.z = 0;
 	body->applyCentralImpulse(-v/10);
-
-	ph::vec3f f = body->getTotalForce();
-	printf("force: %f, %f, %f\n", f.x, f.y, f.z);
 }
 
 void Player::strafe(float fwd, float side) {

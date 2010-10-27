@@ -37,7 +37,7 @@ int main()
 
 	G::gameScreen = new World();
 	G::menuScreen = new Menu();
-	G::curScreen = G::menuScreen;
+	G::curScreen = G::gameScreen;
 	setupKeyBindings();
 
 	sf::String fpsStr("", sf::Font::GetDefaultFont(), 15);

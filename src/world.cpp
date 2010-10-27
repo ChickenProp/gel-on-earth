@@ -34,6 +34,8 @@ void World::update() {
 	printf("stepSimulation returned: %d\n", steps);
 	player.update();
 	rotate += 1.0f;
+
+	printf("---\n");
 }
 
 void World::draw() {
