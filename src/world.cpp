@@ -30,7 +30,8 @@ World::~World () {
 }
 
 void World::update() {
-	G::physics->stepSimulation(1/G::framerate, 10);
+	int steps = G::physics->stepSimulation(1/G::framerate, 10);
+	printf("stepSimulation returned: %d\n", steps);
 	player.update();
 	rotate += 1.0f;
 }

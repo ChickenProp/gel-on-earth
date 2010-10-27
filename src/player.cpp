@@ -40,14 +40,22 @@ void Player::update() {
 }
 
 void Player::applyFriction() {
-	ph::vec3f vel = body->getLinearVelocity();
-	vel.z = 0;
-	body->applyCentralImpulse(-vel/2);
+	ph::vec3f v = body->getLinearVelocity();
+	printf("vel: %f, %f, %f\n", v.x, v.y, v.z);
+	v.z = 0;
+	body->applyCentralImpulse(-v/10);
+
+	ph::vec3f f = body->getTotalForce();
+	printf("force: %f, %f, %f\n", f.x, f.y, f.z);
 }
 
 void Player::strafe(float fwd, float side) {
 	ph::vec3f front = orientation.projectXY().normalize();
 	ph::vec3f left = front.cross(ph::vec3f(0,0,1));
+
+	printf("front: %f, %f, %f; left: %f, %f, %f\n",
+	       front.x, front.y, front.z,
+	       left.x, left.y, left.z);
 
 	body->applyCentralImpulse(front*fwd + left*side);
 }
@@ -64,5 +72,7 @@ ph::vec3f Player::changeOrientationWithMouse(int x, int y) {
 	orientation = ph::vec3f::spherical(
 	        1, orientation.phi()+x,
 		ph::clampf(orientation.theta()+y, -60, 60) );
+	
 	return orientation;
+	
 }
