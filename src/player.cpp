@@ -19,6 +19,9 @@ Player::Player() {
 	btRigidBody::btRigidBodyConstructionInfo
 		construct(mass, ms, shape, inertia);
         body = new btRigidBody(construct);
+
+	body->setActivationState(DISABLE_DEACTIVATION);
+
 	G::physics->addRigidBody(body);
 }
 
@@ -36,14 +39,6 @@ void Player::update() {
 	pos.y = trans.getOrigin().getY();
 	pos.z = trans.getOrigin().getZ();
 
-	printf("pos: %f, %f, %f\n", pos.x, pos.y, pos.z);
-
-	ph::vec3f v = body->getLinearVelocity();
-	printf("vel: %f, %f, %f\n", v.x, v.y, v.z);
-
-	ph::vec3f f = body->getTotalForce();
-	printf("force: %f, %f, %f\n", f.x, f.y, f.z);
-
 	applyFriction();
 }
 
@@ -56,10 +51,6 @@ void Player::applyFriction() {
 void Player::strafe(float fwd, float side) {
 	ph::vec3f front = orientation.projectXY().normalize();
 	ph::vec3f left = front.cross(ph::vec3f(0,0,1));
-
-	printf("front: %f, %f, %f; left: %f, %f, %f\n",
-	       front.x, front.y, front.z,
-	       left.x, left.y, left.z);
 
 	body->applyCentralImpulse(front*fwd + left*side);
 }
