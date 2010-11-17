@@ -9,6 +9,7 @@
 #include <GL/glu.h>
 
 #include <btBulletDynamicsCommon.h>
+#include <BulletCollision/CollisionShapes/btBox2dShape.h>
 
 #include <iostream>
 #include <map>

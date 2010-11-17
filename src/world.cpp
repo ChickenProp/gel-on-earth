@@ -7,11 +7,9 @@ World::World() {
 	wallImage.LoadFromFile("media/wall.tga");
 	rotate = 0.0f;
 
-	ph::vec3f corners[] = { ph::vec3f(-10, -10, +10),
-				ph::vec3f(-10, -10, 0),
-				ph::vec3f(-10, +10, 0),
-				ph::vec3f(-10, +10, +10) };
-	walls.push_back(new Wall(corners));
+	walls.push_back(new Wall(ph::vec3f(-10, 0, 5),
+	                         ph::vec3f(-10, 10, 10),
+	                         ph::vec3f(-10, 10, 0)));
 
 	btDefaultMotionState *ms
 		= new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),
@@ -27,6 +25,13 @@ World::~World () {
 	G::physics->removeRigidBody(groundBody);
 	delete groundBody->getMotionState();
 	delete groundBody;
+
+	for (std::vector<Wall*>::iterator it = walls.begin();
+	     it != walls.end(); it++)
+	{
+		delete *it;
+		*it = NULL;
+	}
 }
 
 void World::update() {

@@ -5,8 +5,15 @@
 
 class Wall {
 public:
-	Wall (const ph::vec3f *c);
+	Wall (const ph::vec3f centre,
+	      const ph::vec3f topright,
+	      const ph::vec3f botright);
+	~Wall();
+
 	Vertex corners[4];
+
+	btCollisionShape* shape;
+	btRigidBody* body;
 
 	void draw();
 };
