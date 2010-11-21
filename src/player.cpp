@@ -61,7 +61,9 @@ void Player::strafe(float fwd, float side) {
 }
 
 void Player::draw() {
+	GLCheck( glDisable(GL_DEPTH_TEST) );
 	G::window.Draw(crosshair);
+	GLCheck( glEnable(GL_DEPTH_TEST) );
 }
 
 void Player::setupCamera() {
