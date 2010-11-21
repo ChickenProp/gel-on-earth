@@ -39,7 +39,7 @@ Wall::Wall(const ph::vec3f centre,
 	shape->calculateLocalInertia(mass, inertia);
 
 	btRigidBody::btRigidBodyConstructionInfo construct
-		(mass, NULL, shape, inertia);
+		(mass, NULL, shape, inertia); // NULL means no motionstate.
 	body = new btRigidBody(construct);
 	body->setWorldTransform(transform);
 

@@ -74,6 +74,8 @@ void World::draw() {
 		0,4, 1,5, 2,6, 3,7,
 	};
 
+	GLCheck( glPushMatrix() );
+
 	player.setupCamera();
 
 	GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );
@@ -111,4 +113,8 @@ void World::draw() {
 
 	GLCheck( glDisableClientState(GL_TEXTURE_COORD_ARRAY) );
  	GLCheck( glDisableClientState(GL_VERTEX_ARRAY) );
+
+	GLCheck( glPopMatrix() );
+
+	player.draw();
 }

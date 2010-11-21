@@ -21,6 +21,9 @@ public:
 
 	void applyFriction();
 
+	sf::Image crosshairImage;
+	sf::Sprite crosshair;
+	void draw();
 	void setupCamera();
 	ph::vec3f changeOrientationWithMouse(int x, int y);
 };

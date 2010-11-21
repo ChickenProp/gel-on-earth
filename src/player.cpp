@@ -23,6 +23,11 @@ Player::Player() {
 	body->setActivationState(DISABLE_DEACTIVATION);
 
 	G::physics->addRigidBody(body);
+
+	crosshairImage.LoadFromFile("media/crosshair.tga");
+
+	crosshair.SetImage(crosshairImage);
+	crosshair.Move(G::windowCentre);
 }
 
 Player::~Player() {
@@ -53,6 +58,10 @@ void Player::strafe(float fwd, float side) {
 	ph::vec3f left = front.cross(ph::vec3f(0,0,1));
 
 	body->applyCentralImpulse(front*fwd + left*side);
+}
+
+void Player::draw() {
+	G::window.Draw(crosshair);
 }
 
 void Player::setupCamera() {
