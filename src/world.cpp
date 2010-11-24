@@ -11,11 +11,8 @@ World::World() {
 	                         ph::vec3f(-10, 10, 10),
 	                         ph::vec3f(-10, 10, 0)));
 
-	btDefaultMotionState *ms
-		= new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),
-		                                       btVector3(0,0,0)));
 	btRigidBody::btRigidBodyConstructionInfo
-		construct(0, ms, G::Shapes::ground, btVector3(0, 0, 0));
+		construct(0, NULL, G::Shapes::ground, btVector3(0, 0, 0));
 	groundBody = new btRigidBody(construct);
 
 	G::physics->addRigidBody(groundBody);
@@ -23,7 +20,6 @@ World::World() {
 
 World::~World () {
 	G::physics->removeRigidBody(groundBody);
-	delete groundBody->getMotionState();
 	delete groundBody;
 
 	for (std::vector<Wall*>::iterator it = walls.begin();
