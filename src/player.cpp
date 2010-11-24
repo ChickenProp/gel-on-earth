@@ -71,7 +71,7 @@ void Player::setupCamera() {
 	          0, 0, 0,
 	          0, 1, 0);
 
-	glTranslatef(-pos.x, -pos.z - 1, -pos.y);
+	glTranslatef(-pos.x, -pos.z, -pos.y);
 }
 
 ph::vec3f Player::changeOrientationWithMouse(int x, int y) {
