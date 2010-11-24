@@ -28,4 +28,13 @@ public:
 	ph::vec3f changeOrientationWithMouse(int x, int y);
 };
 
+class PlayerMotionState : public btMotionState {
+public:
+	PlayerMotionState(Player *player);
+	Player *player;
+
+	void getWorldTransform(btTransform &trans) const;
+	void setWorldTransform(const btTransform &trans);	
+};
+
 #endif

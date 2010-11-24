@@ -2,15 +2,13 @@
 #include "globals.h"
 
 Player::Player() {
-	pos = ph::vec3f(0,0,0);
+	pos = ph::vec3f(0,0,1);
 	vel = ph::vec3f(0,0,0);
 	orientation = ph::vec3f::spherical(1, 90, 3);
 
 	shape = new btSphereShape(1);
 
-	btDefaultMotionState* ms =
-                new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),
-		                                     btVector3(0,0,1)));
+	btMotionState* ms = new PlayerMotionState(this);
 
 	btScalar mass = 1;
 	btVector3 inertia(0, 0, 0);
@@ -38,12 +36,6 @@ Player::~Player() {
 }
 
 void Player::update() {
-	btTransform trans;
-	body->getMotionState()->getWorldTransform(trans);
-	pos.x = trans.getOrigin().getX();
-	pos.y = trans.getOrigin().getY();
-	pos.z = trans.getOrigin().getZ();
-
 	applyFriction();
 }
 
@@ -79,6 +71,16 @@ ph::vec3f Player::changeOrientationWithMouse(int x, int y) {
 	        1, orientation.phi()+x,
 		ph::clampf(orientation.theta()+y, -60, 60) );
 	
-	return orientation;
-	
+	return orientation;	
+}
+
+PlayerMotionState::PlayerMotionState(Player *p) {
+	player = p;
+}
+
+void PlayerMotionState::getWorldTransform(btTransform &trans) const {
+	trans = btTransform(btQuaternion(0,0,0,1), player->pos);
+}
+void PlayerMotionState::setWorldTransform(const btTransform &trans) {
+	player->pos = trans.getOrigin();
 }
