@@ -29,6 +29,8 @@ public:
 	static Menu *menuScreen;
 	static Screen *curScreen;
 
+	static bool debugMode;
+
 	static btDiscreteDynamicsWorld *physics;
 
 	struct Shapes {

@@ -114,6 +114,12 @@ void World::draw() {
 	GLCheck( glDisableClientState(GL_TEXTURE_COORD_ARRAY) );
  	GLCheck( glDisableClientState(GL_VERTEX_ARRAY) );
 
+	if (G::debugMode) {
+		GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );
+		GLCheck( glDepthFunc(GL_ALWAYS) );
+		G::physics->debugDrawWorld();
+	}
+
 	GLCheck( glPopMatrix() );
 
 	player.draw();

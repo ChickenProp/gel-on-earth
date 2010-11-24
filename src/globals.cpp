@@ -14,6 +14,8 @@ World *G::gameScreen = NULL;
 Menu *G::menuScreen = NULL;
 Screen *G::curScreen = NULL;
 
+bool G::debugMode = 0;
+
 btDiscreteDynamicsWorld *G::physics = NULL;
 
 btCollisionShape* G::Shapes::ground

@@ -4,9 +4,9 @@
 #include "fps.h"
 #include "world.h"
 #include "menu.h"
+#include "debug-draw.h"
 
-int main()
-{
+int main(int argc, char **argv) {
 	// Build the broadphase
 	btBroadphaseInterface* broadphase = new btDbvtBroadphase();
  
@@ -25,6 +25,13 @@ int main()
 	                                         collisionConfiguration);
 	G::physics->setGravity(btVector3(0, 0, -10));
 
+	DebugDraw *dbg = new DebugDraw();
+	G::physics->setDebugDrawer(dbg);
+	dbg->setDebugMode(btIDebugDraw::DBG_DrawAabb
+	                  | btIDebugDraw::DBG_DrawWireframe);
+
+	if (argc >= 2)
+		G::debugMode = 1;
 
 	G::window.Create(sf::VideoMode(G::windowWidth, G::windowHeight, 32),
 	                 "Gel on Earth");
