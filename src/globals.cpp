@@ -4,7 +4,7 @@ sf::RenderWindow G::window;
 int G::windowWidth = 640;
 int G::windowHeight = 480;
 sf::Vector2f G::windowCentre (320.0f, 240.0f);
-float G::clipNear = 1.0;
+float G::clipNear = 0.8;
 float G::clipFar = 10.0;
 float G::framerate = 60;
 
