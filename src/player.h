@@ -12,7 +12,6 @@ public:
 	btRigidBody* body;
 
 	ph::vec3f pos;
-	ph::vec3f vel;
 	ph::vec3f orientation;
 
 	void strafe(float fwd, float side);

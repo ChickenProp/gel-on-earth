@@ -3,7 +3,6 @@
 
 Player::Player() {
 	pos = ph::vec3f(0,0,1);
-	vel = ph::vec3f(0,0,0);
 	orientation = ph::vec3f::spherical(1, 90, 3);
 
 	shape = new btSphereShape(1);
