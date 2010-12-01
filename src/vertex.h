@@ -19,6 +19,8 @@ public:
 	virtual void setPointers();
 	virtual void setClientState ();
 	virtual void draw (int mode, int count);
+	virtual void drawElems (int mode, int count, int type,
+	                        const void *indices);
 };
 
 // The main vertex class, so it gets the shortest name.
