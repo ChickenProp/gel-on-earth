@@ -78,6 +78,7 @@ void World::draw() {
 	GLCheck( glColor3f(0.5, 0.5, 0.5) );
 
 	GLCheck( glEnableClientState(GL_VERTEX_ARRAY) );
+	GLCheck( glDisableClientState(GL_COLOR_ARRAY) );
 	GLCheck( glVertexPointer(3, GL_FLOAT, 0, floor_vertices) );
 	GLCheck( glDrawArrays(GL_QUADS, 0, 4) );
 

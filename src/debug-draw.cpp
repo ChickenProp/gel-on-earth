@@ -1,14 +1,16 @@
 #include "debug-draw.h"
+#include "vertex.h"
 
 void DebugDraw::drawLine(const btVector3 &from, const btVector3 &to,
                          const btVector3 &color)
 {
-	glColor3f(color.x(), color.y(), color.z());
 
-	glBegin(GL_LINES);
-	glVertex3f(from.x(), from.z(), from.y());
-	glVertex3f(to.x(), to.z(), to.y());
-	glEnd();
+	VertexC line[2] = {
+		VertexC( (ph::vec3f) from, color.x(), color.y(), color.z() ),
+		VertexC( (ph::vec3f) to, color.x(), color.y(), color.z() )
+	};
+
+	line[0].draw(GL_LINES, 2);
 }
 
 void DebugDraw::setDebugMode(int m) {
