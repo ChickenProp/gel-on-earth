@@ -90,7 +90,7 @@ void World::draw() {
 
 	GLCheck( glEnableClientState(GL_TEXTURE_COORD_ARRAY) );
 
-	cube_vertices[0].setPointers();	
+	cube_vertices[0].setupPointers();	
 
 	GLCheck( glColor3f(1, 1, 1) );
 	GLCheck( glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, cube_faces) );
