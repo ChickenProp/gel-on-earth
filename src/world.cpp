@@ -37,11 +37,11 @@ void World::update() {
 }
 
 void World::draw() {
-	float floor_vertices[] = {
-		-10, 0, +10,
-		-10, 0, -10,
-		+10, 0, -10,
-		+10, 0, +10,
+	Vertex floor_vertices[] = {
+		Vertex(-10, +10, 0, 0.5, 0.5, 0.5),
+		Vertex(-10, -10, 0, 0.5, 0.5, 0.5),
+		Vertex(+10, -10, 0, 0.5, 0.5, 0.5),
+		Vertex(+10, +10, 0, 0.5, 0.5, 0.5),
 	};
 
 	Vertex cube_vertices[] = {
@@ -75,12 +75,10 @@ void World::draw() {
 	player.setupCamera();
 
 	GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );
-	GLCheck( glColor3f(0.5, 0.5, 0.5) );
 
-	GLCheck( glEnableClientState(GL_VERTEX_ARRAY) );
-	GLCheck( glVertexPointer(3, GL_FLOAT, 0, floor_vertices) );
-	GLCheck( glDrawArrays(GL_QUADS, 0, 4) );
+	floor_vertices[0].draw(GL_QUADS, 4);
 
+	// Draw cube
 	wallImage.Bind();
 
 	GLCheck( glPushMatrix() );
@@ -88,26 +86,23 @@ void World::draw() {
 	GLCheck( glTranslatef(0, 0.21, 5) );
 	GLCheck( glRotatef(rotate, 0, 1, 0) );
 
-	GLCheck( glEnableClientState(GL_TEXTURE_COORD_ARRAY) );
-
-	cube_vertices[0].setupPointers();	
-
-	GLCheck( glColor3f(1, 1, 1) );
-	GLCheck( glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, cube_faces) );
-
+	cube_vertices->drawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT,
+	                            cube_faces);
+	
 	GLCheck( glDisableClientState(GL_TEXTURE_COORD_ARRAY) );
-
+	GLCheck( glDisableClientState(GL_COLOR_ARRAY) );
 	GLCheck( glColor3f(0, 0, 0) );
-	GLCheck( glDrawElements(GL_LINES, 24, GL_UNSIGNED_SHORT, cube_edges) );
+
+	cube_vertices->justDrawElements(GL_LINES, 24, GL_UNSIGNED_SHORT,
+	                                cube_edges);
 
 	GLCheck( glPopMatrix() );
-
-	GLCheck( glColor3f(1, 1, 1) );
-	GLCheck( glEnableClientState(GL_TEXTURE_COORD_ARRAY) );
+	// Done drawing cube.
 
 	walls[0]->draw();	
 
 	GLCheck( glDisableClientState(GL_TEXTURE_COORD_ARRAY) );
+	GLCheck( glDisableClientState(GL_COLOR_ARRAY) );
  	GLCheck( glDisableClientState(GL_VERTEX_ARRAY) );
 
 	if (G::debugMode) {

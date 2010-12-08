@@ -53,6 +53,5 @@ Wall::~Wall() {
 }
 
 void Wall::draw() {
-	corners[0].setupPointers();
-	GLCheck( glDrawArrays(GL_QUADS, 0, 4) );
+	corners[0].draw(GL_QUADS, 4);
 }           

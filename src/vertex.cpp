@@ -40,4 +40,37 @@ void Vertex::setupClientState() {
 
 	if (hasTexture)
 		GLCheck( glEnableClientState(GL_TEXTURE_COORD_ARRAY) );
+	else
+		GLCheck( glDisableClientState(GL_TEXTURE_COORD_ARRAY) );
 }
+
+void Vertex::draw(int mode, int count) {
+	setupClientState();
+	setupPointers();
+	justDraw(mode, count);
+}
+void Vertex::drawElements(int mode, int count, int type, const void *indices) {
+	setupPointers();
+	setupClientState();
+	justDrawElements(mode, count, type, indices);
+}
+		
+void Vertex::justDraw(int mode, int count) {
+	GLCheck( glDrawArrays(mode, 0, count) );
+}
+
+void Vertex::justDrawElements(int mode, int count, int type,
+                              const void *indices)
+{
+	GLCheck( glDrawElements(mode, count, type, indices) );
+}
+
+
+
+
+
+
+
+
+
+

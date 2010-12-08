@@ -37,6 +37,12 @@ public:
 
 	void setupPointers();
 	void setupClientState();
+
+	void draw(int mode, int count);
+	void drawElements(int mode, int count, int type, const void *indices);
+
+	void justDraw(int mode, int count);
+	void justDrawElements(int mode, int count, int type, const void *indices);
 };
 
 #endif
