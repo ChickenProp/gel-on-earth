@@ -19,13 +19,6 @@ void VertexSup::draw (int mode, int count) {
 	GLCheck( glDrawArrays(mode, 0, count) );
 }
 
-void VertexSup::drawElems (int mode, int count, int type, const void *indices) {
-	setPointers();
-	setClientState();
-
-	GLCheck( glDrawElements(mode, count, type, indices) );
-}
-
 void Vertex::setClientState() {
 	VertexSup::setClientState();
 
