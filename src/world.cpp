@@ -10,6 +10,10 @@ World::World() {
 	                         ph::vec3f(-10, 10, 10),
 	                         ph::vec3f(-10, 10, 0)));
 
+	walls.push_back(new Wall(ph::vec3f(-5, 10, 5),
+	                         ph::vec3f(0, 10, 10),
+	                         ph::vec3f(0, 10, 0)));
+
 	btRigidBody::btRigidBodyConstructionInfo
 		construct(0, NULL, G::shapes::ground, btVector3(0, 0, 0));
 	groundBody = new btRigidBody(construct);
@@ -43,7 +47,9 @@ void World::draw() {
 	drawFloor();
 	drawCube();
 
-	walls[0]->draw();	
+	foreach(Wall *w, walls) {
+		w->draw();
+	}
 
 	if (G::debugMode) {
 		GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );

@@ -14,6 +14,9 @@
 #include <iostream>
 #include <map>
 
+#include <boost/foreach.hpp>
+#define foreach BOOST_FOREACH
+
 #include "ph-utils/vector.h"
 
 // I took this from SFML/Graphics/GraphicsContext.hpp, but it doesn't seem
