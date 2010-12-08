@@ -33,9 +33,14 @@ public:
 
 	static btDiscreteDynamicsWorld *physics;
 
-	struct Shapes {
+	struct shapes {
 		static btCollisionShape *ground;
 	};
+
+	struct images {
+		static sf::Image wall;
+	};
+	static void loadImages();
 };
 
 #endif

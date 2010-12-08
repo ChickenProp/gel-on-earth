@@ -6,6 +6,8 @@ Wall::Wall(const ph::vec3f centre,
            const ph::vec3f topright,
            const ph::vec3f botright)
 {
+	sprite.SetImage(G::images::wall);
+
 	ph::vec3f topleft = centre + (centre - botright);
 	ph::vec3f botleft = centre + (centre - topright);
 
@@ -53,5 +55,6 @@ Wall::~Wall() {
 }
 
 void Wall::draw() {
+	sprite.GetImage()->Bind();
 	corners[0].draw(GL_QUADS, 4);
 }           

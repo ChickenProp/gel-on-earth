@@ -20,10 +20,11 @@ public:
 
 	//Just for the box, which I'll remove at some point.
 	float rotate;
-	sf::Image wallImage;
 
 	void update();
 	void draw();
+	void drawFloor();
+	void drawCube();
 };
 
 #endif

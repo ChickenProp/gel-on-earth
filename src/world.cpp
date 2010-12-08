@@ -4,7 +4,6 @@
 #include "wall.h"
 
 World::World() {
-	wallImage.LoadFromFile("media/wall.tga");
 	rotate = 0.0f;
 
 	walls.push_back(new Wall(ph::vec3f(-10, 0, 5),
@@ -12,7 +11,7 @@ World::World() {
 	                         ph::vec3f(-10, 10, 0)));
 
 	btRigidBody::btRigidBodyConstructionInfo
-		construct(0, NULL, G::Shapes::ground, btVector3(0, 0, 0));
+		construct(0, NULL, G::shapes::ground, btVector3(0, 0, 0));
 	groundBody = new btRigidBody(construct);
 
 	G::physics->addRigidBody(groundBody);
@@ -37,6 +36,27 @@ void World::update() {
 }
 
 void World::draw() {
+	GLCheck( glPushMatrix() );
+
+	player.setupCamera();
+
+	drawFloor();
+	drawCube();
+
+	walls[0]->draw();	
+
+	if (G::debugMode) {
+		GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );
+		GLCheck( glDepthFunc(GL_ALWAYS) );
+		G::physics->debugDrawWorld();
+	}
+
+	GLCheck( glPopMatrix() );
+
+	player.draw();
+}
+
+void World::drawFloor() {
 	Vertex floor_vertices[] = {
 		Vertex(-10, +10, 0, 0.5, 0.5, 0.5),
 		Vertex(-10, -10, 0, 0.5, 0.5, 0.5),
@@ -44,6 +64,12 @@ void World::draw() {
 		Vertex(+10, +10, 0, 0.5, 0.5, 0.5),
 	};
 
+	GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );
+
+	floor_vertices->draw(GL_QUADS, 4);
+}
+
+void World::drawCube() {
 	Vertex cube_vertices[] = {
 		Vertex( -0.2, -0.2, +0.2, 0, 0 ),
 		Vertex( -0.2, -0.2, -0.2, 0, 1 ),
@@ -70,16 +96,7 @@ void World::draw() {
 		0,4, 1,5, 2,6, 3,7,
 	};
 
-	GLCheck( glPushMatrix() );
-
-	player.setupCamera();
-
-	GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );
-
-	floor_vertices[0].draw(GL_QUADS, 4);
-
-	// Draw cube
-	wallImage.Bind();
+	G::images::wall.Bind();
 
 	GLCheck( glPushMatrix() );
 
@@ -97,21 +114,4 @@ void World::draw() {
 	                                cube_edges);
 
 	GLCheck( glPopMatrix() );
-	// Done drawing cube.
-
-	walls[0]->draw();	
-
-	GLCheck( glDisableClientState(GL_TEXTURE_COORD_ARRAY) );
-	GLCheck( glDisableClientState(GL_COLOR_ARRAY) );
- 	GLCheck( glDisableClientState(GL_VERTEX_ARRAY) );
-
-	if (G::debugMode) {
-		GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );
-		GLCheck( glDepthFunc(GL_ALWAYS) );
-		G::physics->debugDrawWorld();
-	}
-
-	GLCheck( glPopMatrix() );
-
-	player.draw();
 }

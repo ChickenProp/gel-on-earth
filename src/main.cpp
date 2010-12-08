@@ -7,6 +7,8 @@
 #include "debug-draw.h"
 
 int main(int argc, char **argv) {
+	G::loadImages();
+
 	// Build the broadphase
 	btBroadphaseInterface* broadphase = new btDbvtBroadphase();
  

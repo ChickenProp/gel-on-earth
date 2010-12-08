@@ -12,6 +12,8 @@ public:
 
 	Vertex corners[4];
 
+	sf::Sprite sprite; // Just to point to an sf::Image.
+
 	btCollisionShape* shape;
 	btRigidBody* body;
 

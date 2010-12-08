@@ -18,8 +18,14 @@ bool G::debugMode = 0;
 
 btDiscreteDynamicsWorld *G::physics = NULL;
 
-btCollisionShape* G::Shapes::ground
+btCollisionShape* G::shapes::ground
 	= new btStaticPlaneShape(btVector3(0, 0, 1), 0);
+
+sf::Image G::images::wall;
+
+void G::loadImages() {
+	images::wall.LoadFromFile("media/wall.tga");
+}
 
 sf::Vector2i G::getMouseMoveDelta(sf::Event e) {
 	return sf::Vector2i((int) windowCentre.x - e.MouseMove.X,
