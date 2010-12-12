@@ -8,6 +8,8 @@ Bullet::Bullet(ph::vec3f pos, ph::vec3f vel) {
 	btMotionState *state = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1), pos));
 
 	initialize(mass, inertia, state);
+
+	body->setGravity(btVector3(0,0,0));
 }
 
 
