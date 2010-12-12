@@ -2,6 +2,7 @@
 #include "globals.h"
 #include "vertex.h"
 #include "wall.h"
+#include "bullet.h"
 
 World::World() {
 	rotate = 0.0f;
@@ -19,6 +20,8 @@ World::World() {
 	groundBody = new btRigidBody(construct);
 
 	G::physics->addRigidBody(groundBody);
+
+	new Bullet(ph::vec3f(0, 2, 2), ph::vec3f(0,0,0));
 }
 
 World::~World () {
