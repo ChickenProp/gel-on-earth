@@ -2,14 +2,14 @@
 #define _PLAYER_H
 
 #include "includes.h"
+#include "entity.h"
 
-class Player {
+class Player : public Entity {
 public:
+	typedef Entity super;
+
 	Player();
 	~Player();
-
-	btCollisionShape* shape;
-	btRigidBody* body;
 
 	ph::vec3f pos;
 	ph::vec3f orientation;

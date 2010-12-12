@@ -11,15 +11,8 @@ Player::Player() {
 
 	btScalar mass = 1;
 	btVector3 inertia(0, 0, 0);
-	shape->calculateLocalInertia(mass, inertia);
 
-	btRigidBody::btRigidBodyConstructionInfo
-		construct(mass, ms, shape, inertia);
-        body = new btRigidBody(construct);
-
-	body->setActivationState(DISABLE_DEACTIVATION);
-
-	G::physics->addRigidBody(body);
+	initialize(mass, inertia, ms);
 
 	crosshairImage.LoadFromFile("media/crosshair.tga");
 
@@ -28,10 +21,6 @@ Player::Player() {
 }
 
 Player::~Player() {
-	delete shape;
-	G::physics->removeRigidBody(body);
-	delete body->getMotionState();
-	delete body;
 }
 
 void Player::update() {
