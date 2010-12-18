@@ -25,6 +25,10 @@ void setupKeyBindings() {
 	e.Type = sf::Event::MouseMoved;
 	G::gameScreen->keymap.bindEvent(e, &lookAround);
 
+	e.Type = sf::Event::MouseButtonPressed;
+	e.MouseButton.Button = sf::Mouse::Left;
+	G::gameScreen->keymap.bindEvent(e, &playershoot);
+
 	G::gameScreen->keymap.bindKey(sf::Key::Left, &strafeLeft);
 	G::gameScreen->keymap.bindKey(sf::Key::Right, &strafeRight);
 	G::gameScreen->keymap.bindKey(sf::Key::Down, &strafeBack);
@@ -45,6 +49,10 @@ void lookAround(sf::Event ev, bool real) {
 	if (v.x == 0 && v.y == 0)
 		return;
 	G::gameScreen->player.changeOrientationWithMouse(v.x, v.y);
+}
+
+void playershoot(sf::Event ev, bool) {
+	G::gameScreen->player.shoot();
 }
 
 void strafeFwd(sf::Event, bool) {

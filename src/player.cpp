@@ -1,5 +1,6 @@
 #include "player.h"
 #include "globals.h"
+#include "bullet.h"
 
 Player::Player() {
 	pos = ph::vec3f(0,0,1);
@@ -31,6 +32,15 @@ void Player::applyFriction() {
 	ph::vec3f v = body->getLinearVelocity();
 	v.z = 0;
 	body->applyCentralImpulse(-v/10);
+}
+
+void Player::shoot() {
+	// *2 creates it well clear of the player. What I could do instead is
+	// not allow Bullets created by the player to hit the player, and then I
+	// don't need to worry about where I create it. (When I make the player
+	// be not-a-sphere, it may not be obvious how far away I should create
+	// the bullet not to be intersecting the player.)
+	new Bullet(pos + orientation*2, orientation);
 }
 
 void Player::strafe(float fwd, float side) {

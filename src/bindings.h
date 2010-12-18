@@ -9,6 +9,8 @@ void quitGame(sf::Event ev, bool real);
 
 void lookAround(sf::Event ev, bool real);
 
+void playershoot(sf::Event ev, bool);
+
 void strafeFwd(sf::Event, bool);
 void strafeBack(sf::Event, bool);
 void strafeLeft(sf::Event, bool);

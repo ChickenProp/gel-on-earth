@@ -20,6 +20,8 @@ public:
 
 	void applyFriction();
 
+	void shoot();
+
 	sf::Image crosshairImage;
 	sf::Sprite crosshair;
 	void draw();

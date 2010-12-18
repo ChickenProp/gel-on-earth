@@ -11,6 +11,7 @@
 #include <btBulletDynamicsCommon.h>
 #include <BulletCollision/CollisionShapes/btBox2dShape.h>
 
+#include <cstdio>
 #include <iostream>
 #include <map>
 
