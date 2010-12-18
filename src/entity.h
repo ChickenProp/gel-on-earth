@@ -8,7 +8,7 @@ public:
 	Entity();
 	~Entity();
 
-	virtual void initialize(btScalar mass, btVector3 inertia,
+	virtual void initialize(btScalar mass, btVector3 vel,
 	                        btMotionState *state);
 
 	virtual void update();

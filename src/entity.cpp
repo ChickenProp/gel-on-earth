@@ -19,14 +19,16 @@ Entity::~Entity() {
 	}
 }
 
-void Entity::initialize (btScalar mass, btVector3 inertia, btMotionState *state)
+void Entity::initialize (btScalar mass, btVector3 vel, btMotionState *state)
 {
 	if (shape) {
+		btVector3 inertia;
 		shape->calculateLocalInertia(mass, inertia);
 		btRigidBody::btRigidBodyConstructionInfo
 			construct(mass, state, shape, inertia);
 		body = new btRigidBody(construct);
 
+		body->setLinearVelocity(vel);
 		body->setActivationState(DISABLE_DEACTIVATION);
 
 		G::physics->addRigidBody(body);

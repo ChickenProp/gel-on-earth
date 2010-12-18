@@ -40,7 +40,7 @@ void Player::shoot() {
 	// don't need to worry about where I create it. (When I make the player
 	// be not-a-sphere, it may not be obvious how far away I should create
 	// the bullet not to be intersecting the player.)
-	new Bullet(pos + orientation*2, orientation);
+	Bullet *b = new Bullet(pos + orientation*2, orientation*50);
 }
 
 void Player::strafe(float fwd, float side) {
