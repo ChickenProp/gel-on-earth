@@ -1,4 +1,4 @@
-env = Environment()
+env = Environment(CPPPATH=['/usr/include/bullet'])
 
 debug = ARGUMENTS.get('debug', 0)
 if int(debug):

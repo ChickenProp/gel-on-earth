@@ -8,8 +8,8 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
-#include <btBulletDynamicsCommon.h>
-#include <BulletCollision/CollisionShapes/btBox2dShape.h>
+#include <bullet/BulletDynamics/btBulletDynamicsCommon.h>
+#include <bullet/BulletCollision/CollisionShapes/btBox2dShape.h>
 
 #include <cstdio>
 #include <iostream>
