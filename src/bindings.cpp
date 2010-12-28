@@ -49,13 +49,10 @@ void lookAround(sf::Event ev, bool real) {
 	if (v.x == 0 && v.y == 0)
 		return;
 	G::gameScreen->player.changeOrientationWithMouse(v.x, v.y);
-<<<<<<< HEAD
-=======
 }
 
 void playershoot(sf::Event ev, bool) {
 	G::gameScreen->player.shoot();
->>>>>>> collision
 }
 
 void strafeFwd(sf::Event, bool) {
