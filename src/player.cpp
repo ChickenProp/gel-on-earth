@@ -1,6 +1,7 @@
 #include "player.h"
 #include "globals.h"
 #include "bullet.h"
+#include "world.h"
 
 Player::Player() {
 	pos = ph::vec3f(0,0,1);
@@ -41,6 +42,7 @@ void Player::shoot() {
 	// be not-a-sphere, it may not be obvious how far away I should create
 	// the bullet not to be intersecting the player.)
 	Bullet *b = new Bullet(pos + orientation*2, orientation*50);
+	G::gameScreen->addEntity(b);
 }
 
 void Player::strafe(float fwd, float side) {

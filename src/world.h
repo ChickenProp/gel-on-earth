@@ -17,6 +17,8 @@ public:
 	btRigidBody *groundBody;
 
 	std::vector<Wall*> walls;
+	std::vector<Entity*> entities;
+	void addEntity(Entity *ent);
 
 	//Just for the box, which I'll remove at some point.
 	float rotate;

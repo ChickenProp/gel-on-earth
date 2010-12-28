@@ -4,6 +4,9 @@
 #include "wall.h"
 #include "bullet.h"
 
+// This is a debugging symbol from bullet.
+extern int gNumClampedCcdMotions;
+
 World::World() {
 	rotate = 0.0f;
 
@@ -21,7 +24,7 @@ World::World() {
 
 	G::physics->addRigidBody(groundBody);
 
-	new Bullet(ph::vec3f(0, 2, 2), ph::vec3f(0,0,0));
+	addEntity(new Bullet(ph::vec3f(0, 2, 2), ph::vec3f(0,0,0)));
 }
 
 World::~World () {
@@ -34,12 +37,25 @@ World::~World () {
 		delete *it;
 		*it = NULL;
 	}
+
+	for (std::vector<Entity*>::iterator it = entities.begin();
+	     it != entities.end(); it++)
+	{
+		delete *it;
+		*it = NULL;
+	}
 }
 
 void World::update() {
 	int steps = G::physics->stepSimulation(1/G::framerate, 10);
 	player.update();
 	rotate += 1.0f;
+
+	printf("%d\n", gNumClampedCcdMotions);
+}
+
+void World::addEntity(Entity *ent) {
+	entities.push_back(ent);
 }
 
 void World::draw() {

@@ -10,6 +10,8 @@ Bullet::Bullet(ph::vec3f pos, ph::vec3f vel) {
 	initialize(mass, inertia, state);
 
 	body->setGravity(btVector3(0,0,0));
+	body->setCcdMotionThreshold(0.2);
+	body->setCcdSweptSphereRadius(0.2);
 }
 
 
