@@ -1,31 +1,100 @@
 #include "world.h"
 #include "globals.h"
 #include "vertex.h"
+#include "wall.h"
+#include "bullet.h"
+
+// This is a debugging symbol from bullet.
+extern int gNumClampedCcdMotions;
 
 World::World() {
-	wallImage.LoadFromFile("media/wall.tga");
 	rotate = 0.0f;
 
-	ph::vec3f corners[] = { ph::vec3f(-10, -10, +10),
-				ph::vec3f(-10, -10, 0),
-				ph::vec3f(-10, +10, 0),
-				ph::vec3f(-10, +10, +10) };
-	walls.push_back(new Wall(corners));
+	walls.push_back(new Wall(ph::vec3f(-10, 0, 5),
+	                         ph::vec3f(-10, 10, 10),
+	                         ph::vec3f(-10, 10, 0)));
+
+	walls.push_back(new Wall(ph::vec3f(-5, 10, 5),
+	                         ph::vec3f(0, 10, 10),
+	                         ph::vec3f(0, 10, 0)));
+
+	btRigidBody::btRigidBodyConstructionInfo
+		construct(0, NULL, G::shapes::ground, btVector3(0, 0, 0));
+	groundBody = new btRigidBody(construct);
+
+	G::physics->addRigidBody(groundBody);
+
+	addEntity(new Bullet(ph::vec3f(0, 2, 2), ph::vec3f(0,0,0)));
+}
+
+World::~World () {
+	G::physics->removeRigidBody(groundBody);
+	delete groundBody;
+
+	for (std::vector<Wall*>::iterator it = walls.begin();
+	     it != walls.end(); it++)
+	{
+		delete *it;
+		*it = NULL;
+	}
+
+	for (std::vector<Entity*>::iterator it = entities.begin();
+	     it != entities.end(); it++)
+	{
+		delete *it;
+		*it = NULL;
+	}
 }
 
 void World::update() {
+	int steps = G::physics->stepSimulation(1/G::framerate, 10);
 	player.update();
 	rotate += 1.0f;
+
+	printf("%d\n", gNumClampedCcdMotions);
+}
+
+void World::addEntity(Entity *ent) {
+	entities.push_back(ent);
 }
 
 void World::draw() {
-	float floor_vertices[] = {
-		-10, 0, +10,
-		-10, 0, -10,
-		+10, 0, -10,
-		+10, 0, +10,
+	GLCheck( glPushMatrix() );
+
+	player.setupCamera();
+
+	drawFloor();
+	drawCube();
+
+	foreach(Wall *w, walls) {
+		w->draw();
+	}
+
+	if (G::debugMode) {
+		GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );
+		GLCheck( glDepthFunc(GL_ALWAYS) );
+		G::physics->debugDrawWorld();
+	}
+
+	GLCheck( glPopMatrix() );
+
+	player.draw();
+}
+
+void World::drawFloor() {
+	Vertex floor_vertices[] = {
+		Vertex(-10, +10, 0, 0.5, 0.5, 0.5),
+		Vertex(-10, -10, 0, 0.5, 0.5, 0.5),
+		Vertex(+10, -10, 0, 0.5, 0.5, 0.5),
+		Vertex(+10, +10, 0, 0.5, 0.5, 0.5),
 	};
 
+	GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );
+
+	floor_vertices->draw(GL_QUADS, 4);
+}
+
+void World::drawCube() {
 	Vertex cube_vertices[] = {
 		Vertex( -0.2, -0.2, +0.2, 0, 0 ),
 		Vertex( -0.2, -0.2, -0.2, 0, 1 ),
@@ -52,41 +121,22 @@ void World::draw() {
 		0,4, 1,5, 2,6, 3,7,
 	};
 
-	player.setupCamera();
-
-	GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );
-	GLCheck( glColor3f(0.5, 0.5, 0.5) );
-
-	GLCheck( glEnableClientState(GL_VERTEX_ARRAY) );
-	GLCheck( glVertexPointer(3, GL_FLOAT, 0, floor_vertices) );
-	GLCheck( glDrawArrays(GL_QUADS, 0, 4) );
-
-	wallImage.Bind();
+	G::images::wall.Bind();
 
 	GLCheck( glPushMatrix() );
 
 	GLCheck( glTranslatef(0, 0.21, 5) );
 	GLCheck( glRotatef(rotate, 0, 1, 0) );
 
-	GLCheck( glEnableClientState(GL_TEXTURE_COORD_ARRAY) );
-
-	cube_vertices[0].setPointers();	
-
-	GLCheck( glColor3f(1, 1, 1) );
-	GLCheck( glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, cube_faces) );
-
+	cube_vertices->drawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT,
+	                            cube_faces);
+	
 	GLCheck( glDisableClientState(GL_TEXTURE_COORD_ARRAY) );
-
+	GLCheck( glDisableClientState(GL_COLOR_ARRAY) );
 	GLCheck( glColor3f(0, 0, 0) );
-	GLCheck( glDrawElements(GL_LINES, 24, GL_UNSIGNED_SHORT, cube_edges) );
+
+	cube_vertices->justDrawElements(GL_LINES, 24, GL_UNSIGNED_SHORT,
+	                                cube_edges);
 
 	GLCheck( glPopMatrix() );
-
-	GLCheck( glColor3f(1, 1, 1) );
-	GLCheck( glEnableClientState(GL_TEXTURE_COORD_ARRAY) );
-
-	walls[0]->draw();	
-
-	GLCheck( glDisableClientState(GL_TEXTURE_COORD_ARRAY) );
- 	GLCheck( glDisableClientState(GL_VERTEX_ARRAY) );
 }

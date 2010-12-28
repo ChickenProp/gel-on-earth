@@ -8,8 +8,15 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
+#include <bullet/BulletDynamics/btBulletDynamicsCommon.h>
+#include <bullet/BulletCollision/CollisionShapes/btBox2dShape.h>
+
+#include <cstdio>
 #include <iostream>
 #include <map>
+
+#include <boost/foreach.hpp>
+#define foreach BOOST_FOREACH
 
 #include "ph-utils/vector.h"
 

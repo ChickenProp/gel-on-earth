@@ -3,9 +3,38 @@
 #include "bindings.h"
 #include "fps.h"
 #include "world.h"
+#include "menu.h"
+#include "debug-draw.h"
 
-int main()
-{
+int main(int argc, char **argv) {
+	G::loadImages();
+
+	// Build the broadphase
+	btBroadphaseInterface* broadphase = new btDbvtBroadphase();
+ 
+	// Set up the collision configuration and dispatcher
+	btDefaultCollisionConfiguration* collisionConfiguration
+		= new btDefaultCollisionConfiguration();
+	btCollisionDispatcher* dispatcher
+		= new btCollisionDispatcher(collisionConfiguration);
+ 
+	// The actual physics solver
+	btSequentialImpulseConstraintSolver* solver
+		= new btSequentialImpulseConstraintSolver;
+ 
+	// The world.
+	G::physics = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver,
+	                                         collisionConfiguration);
+	G::physics->setGravity(btVector3(0, 0, -10));
+
+	DebugDraw *dbg = new DebugDraw();
+	G::physics->setDebugDrawer(dbg);
+	dbg->setDebugMode(btIDebugDraw::DBG_DrawAabb
+	                  | btIDebugDraw::DBG_DrawWireframe);
+
+	if (argc >= 2)
+		G::debugMode = 1;
+
 	G::window.Create(sf::VideoMode(G::windowWidth, G::windowHeight, 32),
 	                 "Gel on Earth");
 	//G::window.PreserveOpenGLStates(true);
@@ -13,10 +42,11 @@ int main()
 	int cX = (int) G::windowCentre.x;
 	int cY = (int) G::windowCentre.y;
 	G::window.SetCursorPosition(cX, cY);
+	G::window.SetFramerateLimit(G::framerate);
 
 	G::gameScreen = new World();
 	G::menuScreen = new Menu();
-	G::curScreen = G::menuScreen;
+	G::curScreen = G::gameScreen;
 	setupKeyBindings();
 
 	sf::String fpsStr("", sf::Font::GetDefaultFont(), 15);
@@ -95,6 +125,15 @@ int main()
 
 		G::window.Display();
 	}
+
+	delete G::gameScreen;
+	delete G::menuScreen;
+
+	delete broadphase;
+	delete collisionConfiguration;
+	delete dispatcher;
+	delete solver;
+	delete G::physics;
 
 	return 0;
 }

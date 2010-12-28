@@ -9,28 +9,40 @@ public:
 	// OpenGL has y being "up". So I swap the position of y and z, so now
 	// it works like I expect.
 	float x, z, y;
-	float s, t;
 
-	/* Apparently a size-multiple of 32 bytes is good. Floats tend to be 4.
-	   If I ever start using normals, I can replace this with nx, ny, nz.
-	   Or I can put colors in. But not both.
+	bool hasTexture;
+	float s, t;
+	float r, g, b, a;
+
+	/* Apparently a size-multiple of 32 bytes is good. This makes it 64. If
+	   I ever start using normals, I can put those in.
 	   http://www.opengl.org/wiki/Vertex_Formats */
-	float padding[3];
+	char padding[27];
 
 	static int stride;
 
-	Vertex() : x(0), y(0), z(0), s(0), t(0) {}
+	Vertex ();
+	Vertex (float x, float y, float z);
+	Vertex (float x, float y, float z, float s, float t);
+	Vertex (float x, float y, float z,
+	        float r, float g, float b, float a=1.0f);
+	Vertex (const ph::vec3f &v, float s, float t);
+	Vertex (const ph::vec3f &v, float r, float g, float b, float a=1.0f);
 
-	Vertex(float _x, float _y, float _z)
-		: x(_x), y(_y), z(_z), s(0), t(0) {}
+	Vertex* setPos(float x, float y, float z);
+	Vertex* setPos(const ph::vec3f &pos);
+	Vertex* setTexCoords(float s, float t);
+	Vertex* setHasTexture(bool h);
+	Vertex* setColor(float r, float g, float b, float a=1.0f);
 
-	Vertex(float _x, float _y, float _z, float _s, float _t)
-		: x(_x), y(_y), z(_z), s(_s), t(_t) {}
+	void setupPointers();
+	void setupClientState();
 
-	Vertex(ph::vec3f v, float _s, float _t)
-		: x(v.x), y(v.y), z(v.z), s(_s), t(_t) {}
+	void draw(int mode, int count);
+	void drawElements(int mode, int count, int type, const void *indices);
 
-	void setPointers();
+	void justDraw(int mode, int count);
+	void justDrawElements(int mode, int count, int type, const void *indices);
 };
 
 #endif
