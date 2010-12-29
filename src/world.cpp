@@ -23,8 +23,6 @@ World::World() {
 	groundBody = new btRigidBody(construct);
 
 	G::physics->addRigidBody(groundBody);
-
-	addEntity(new Bullet(ph::vec3f(0, 2, 2), ph::vec3f(0,0,0)));
 }
 
 World::~World () {
@@ -52,6 +50,10 @@ void World::update() {
 	rotate += 1.0f;
 
 	printf("%d\n", gNumClampedCcdMotions);
+
+	foreach(Entity *e, entities) {
+		e->update();
+	}
 }
 
 void World::addEntity(Entity *ent) {

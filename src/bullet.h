@@ -8,6 +8,8 @@ public:
 	typedef Entity super;
 
 	Bullet(ph::vec3f pos, ph::vec3f vel);
+
+	void update();
 };
 
 #endif
