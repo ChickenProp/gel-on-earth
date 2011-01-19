@@ -28,12 +28,10 @@ Bullet::Bullet(ph::vec3f pos, ph::vec3f vel) {
 
 void Bullet::update() {
 	ph::vec3f vel = body->getLinearVelocity();
-	printf("%f, %f, %f\n", vel.x, vel.y, vel.z);
 
 	btTransform trans;
 	body->getMotionState()->getWorldTransform(trans);
 	ph::vec3f pos = trans.getOrigin();
-	printf("%f, %f, %f\n", pos.x, pos.y, pos.z);
 }
 
 

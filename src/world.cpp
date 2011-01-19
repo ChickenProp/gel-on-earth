@@ -49,8 +49,6 @@ void World::update() {
 	player.update();
 	rotate += 1.0f;
 
-	printf("%d\n", gNumClampedCcdMotions);
-
 	foreach(Entity *e, entities) {
 		e->update();
 	}
