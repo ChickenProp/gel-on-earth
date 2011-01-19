@@ -19,6 +19,7 @@ Player::Player() {
 	crosshairImage.LoadFromFile("media/crosshair.tga");
 
 	crosshair.SetImage(crosshairImage);
+	crosshair.SetCenter(crosshair.GetSize()/2.0f);
 	crosshair.Move(G::windowCentre);
 }
 
