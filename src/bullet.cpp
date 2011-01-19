@@ -24,6 +24,9 @@ Bullet::Bullet(ph::vec3f pos, ph::vec3f vel) {
 	// too big, given that the actual collision shape has a radius of .2,
 	// but when I tried this at .15, they did sometimes get stuck.
 	body->setCcdSweptSphereRadius(0.1);
+
+	body->setCollisionFlags(body->getCollisionFlags() |
+	                        btCollisionObject::CF_NO_CONTACT_RESPONSE);
 }
 
 void Bullet::update() {

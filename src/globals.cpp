@@ -31,3 +31,9 @@ sf::Vector2i G::getMouseMoveDelta(sf::Event e) {
 	return sf::Vector2i((int) windowCentre.x - e.MouseMove.X,
 	                    (int) windowCentre.y - e.MouseMove.Y);
 }
+
+bool G::contactProcessedCallback (btManifoldPoint &cp, void *body0, void *body1)
+{
+	printf("hi\n");
+	return false;
+}

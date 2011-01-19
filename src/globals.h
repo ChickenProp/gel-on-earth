@@ -41,6 +41,9 @@ public:
 		static sf::Image wall;
 	};
 	static void loadImages();
+
+	static bool contactProcessedCallback (btManifoldPoint &cp,
+	                                      void *body0, void *body1);
 };
 
 #endif

@@ -9,6 +9,9 @@
 int main(int argc, char **argv) {
 	G::loadImages();
 
+	// Set the callback
+	gContactProcessedCallback = G::contactProcessedCallback;
+
 	// Build the broadphase
 	btBroadphaseInterface* broadphase = new btDbvtBroadphase();
  
