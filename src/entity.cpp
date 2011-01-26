@@ -32,6 +32,8 @@ void Entity::initialize (btScalar mass, btVector3 vel, btMotionState *state)
 		body->setActivationState(DISABLE_DEACTIVATION);
 
 		G::physics->addRigidBody(body);
+
+		body->setUserPointer(this);
 	}
 }
 

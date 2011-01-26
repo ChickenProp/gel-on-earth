@@ -1,4 +1,7 @@
 #include "globals.h"
+#include <typeinfo>
+#include "entity.h"
+#include "bullet.h"
 
 sf::RenderWindow G::window;
 int G::windowWidth = 640;
@@ -34,6 +37,24 @@ sf::Vector2i G::getMouseMoveDelta(sf::Event e) {
 
 bool G::contactProcessedCallback (btManifoldPoint &cp, void *body0, void *body1)
 {
-	printf("hi\n");
+	Entity *ent0 = (Entity*)(((btCollisionObject*)body0)->getUserPointer());
+	Entity *ent1 = (Entity*)(((btCollisionObject*)body1)->getUserPointer());
+
+	// removeRigidbody because I don't currently have a way to remove the
+	// object itself from the World.
+	if (ent0 && typeid(*ent0) == typeid(Bullet))
+		G::physics->removeRigidBody(ent0->body);
+
+	if (ent1 && typeid(*ent1) == typeid(Bullet))
+		G::physics->removeRigidBody(ent1->body);
+
 	return false;
 }
+
+
+
+
+
+
+
+
