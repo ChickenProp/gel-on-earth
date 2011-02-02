@@ -19,6 +19,7 @@ public:
 	std::vector<Wall*> walls;
 	std::vector<Entity*> entities;
 	void addEntity(Entity *ent);
+	void delEntity(Entity *ent);
 
 	//Just for the box, which I'll remove at some point.
 	float rotate;

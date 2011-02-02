@@ -2,6 +2,7 @@
 #include <typeinfo>
 #include "entity.h"
 #include "bullet.h"
+#include "world.h"
 
 sf::RenderWindow G::window;
 int G::windowWidth = 640;
@@ -40,13 +41,11 @@ bool G::contactProcessedCallback (btManifoldPoint &cp, void *body0, void *body1)
 	Entity *ent0 = (Entity*)(((btCollisionObject*)body0)->getUserPointer());
 	Entity *ent1 = (Entity*)(((btCollisionObject*)body1)->getUserPointer());
 
-	// removeRigidbody because I don't currently have a way to remove the
-	// object itself from the World.
 	if (ent0 && typeid(*ent0) == typeid(Bullet))
-		G::physics->removeRigidBody(ent0->body);
+		G::gameScreen->delEntity(ent0);
 
 	if (ent1 && typeid(*ent1) == typeid(Bullet))
-		G::physics->removeRigidBody(ent1->body);
+		G::gameScreen->delEntity(ent1);
 
 	return false;
 }

@@ -50,12 +50,29 @@ void World::update() {
 	rotate += 1.0f;
 
 	foreach(Entity *e, entities) {
-		e->update();
+		if (e)
+			e->update();
 	}
 }
 
 void World::addEntity(Entity *ent) {
 	entities.push_back(ent);
+}
+
+void World::delEntity(Entity *ent) {
+	for (std::vector<Entity*>::iterator it = entities.begin();
+	     it != entities.end(); it++)
+	{
+		if (*it == ent) {
+			*it = NULL;
+			delete ent;
+			return;
+		}
+	}
+
+	// We shouldn't get here, but just in case.
+	fprintf(stderr, "Deleting an entity that is not in the world.\n");
+	delete ent;
 }
 
 void World::draw() {
@@ -67,7 +84,8 @@ void World::draw() {
 	drawCube();
 
 	foreach(Wall *w, walls) {
-		w->draw();
+		if (w)
+			w->draw();
 	}
 
 	if (G::debugMode) {
