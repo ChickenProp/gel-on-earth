@@ -26,9 +26,11 @@ btCollisionShape* G::shapes::ground
 	= new btStaticPlaneShape(btVector3(0, 0, 1), 0);
 
 sf::Image G::images::wall;
+sf::Image G::images::bullet_red;
 
 void G::loadImages() {
 	images::wall.LoadFromFile("media/wall.tga");
+	images::bullet_red.LoadFromFile("media/jelly-bullet-red.tga");
 }
 
 sf::Vector2i G::getMouseMoveDelta(sf::Event e) {

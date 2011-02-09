@@ -39,6 +39,7 @@ public:
 
 	struct images {
 		static sf::Image wall;
+		static sf::Image bullet_red;
 	};
 	static void loadImages();
 

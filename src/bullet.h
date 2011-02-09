@@ -2,6 +2,7 @@
 #define GOE_BULLET_H
 
 #include "entity.h"
+#include "vertex.h"
 
 class Bullet : public Entity {
 public:
@@ -9,7 +10,12 @@ public:
 
 	Bullet(ph::vec3f pos, ph::vec3f vel);
 
+	sf::Sprite sprite;
+
+	Vertex localVertices[4];
+
 	void update();
+	void draw();
 };
 
 #endif

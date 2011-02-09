@@ -1,4 +1,5 @@
 #include "bullet.h"
+#include "globals.h"
 
 Bullet::Bullet(ph::vec3f pos, ph::vec3f vel) {
 	shape = new btSphereShape(0.2);
@@ -8,6 +9,13 @@ Bullet::Bullet(ph::vec3f pos, ph::vec3f vel) {
 	btMotionState *state = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1), pos));
 
 	initialize(mass, inertia, state);
+
+	sprite.SetImage(G::images::bullet_red);
+
+	localVertices[0] = Vertex(ph::vec3f(-1, 0, 1), 0, 1);
+	localVertices[1] = Vertex(ph::vec3f(1, 0, 1), 1, 1);
+	localVertices[2] = Vertex(ph::vec3f(1, 0, -1), 1, 0);
+	localVertices[3] = Vertex(ph::vec3f(-1, 0, -1), 0, 0);
 
 	body->setGravity(btVector3(0,0,0));
 
@@ -37,7 +45,22 @@ void Bullet::update() {
 	ph::vec3f pos = trans.getOrigin();
 }
 
+void Bullet::draw() {
+	printf("ohai\n");
 
+	sprite.GetImage()->Bind();
+
+	glPushMatrix();
+
+	btTransform trans;
+	body->getMotionState()->getWorldTransform(trans);
+	ph::vec3f pos = trans.getOrigin();
+	glTranslatef(pos.x, pos.z, pos.y);
+
+	localVertices[0].draw(GL_QUADS, 4);
+
+	glPopMatrix();
+}
 
 
 

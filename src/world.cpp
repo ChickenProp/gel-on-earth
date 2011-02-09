@@ -88,6 +88,11 @@ void World::draw() {
 			w->draw();
 	}
 
+	foreach (Entity *e, entities) {
+		if (e)
+			e->draw();
+	}
+
 	if (G::debugMode) {
 		GLCheck( glBindTexture(GL_TEXTURE_2D, 0) );
 		GLCheck( glDepthFunc(GL_ALWAYS) );
