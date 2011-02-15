@@ -60,11 +60,11 @@ void Player::draw() {
 }
 
 void Player::setupCamera() {
-	gluLookAt(orientation.x, orientation.z, orientation.y,
+	gluLookAt(orientation.x, orientation.y, orientation.z,
 	          0, 0, 0,
-	          0, 1, 0);
+	          0, 0, 1);
 
-	glTranslatef(-pos.x, -pos.z, -pos.y);
+	glTranslatef(-pos.x, -pos.y, -pos.z);
 }
 
 ph::vec3f Player::changeOrientationWithMouse(int x, int y) {

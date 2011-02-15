@@ -148,8 +148,8 @@ void World::drawCube() {
 
 	GLCheck( glPushMatrix() );
 
-	GLCheck( glTranslatef(0, 0.21, 5) );
-	GLCheck( glRotatef(rotate, 0, 1, 0) );
+	GLCheck( glTranslatef(0, 5, 0.21) );
+	GLCheck( glRotatef(rotate, 0, 0, 1) );
 
 	cube_vertices->drawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT,
 	                            cube_faces);
