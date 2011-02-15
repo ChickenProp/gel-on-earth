@@ -1,5 +1,6 @@
 #include "bullet.h"
 #include "globals.h"
+#include "world.h"
 
 Bullet::Bullet(ph::vec3f pos, ph::vec3f vel) {
 	shape = new btSphereShape(0.2);
@@ -55,7 +56,17 @@ void Bullet::draw() {
 	btTransform trans;
 	body->getMotionState()->getWorldTransform(trans);
 	ph::vec3f pos = trans.getOrigin();
-	glTranslatef(pos.x, pos.z, pos.y);
+	//glTranslatef(pos.x, pos.z, pos.y);
+	ph::vec3f rel = (pos - G::gameScreen->player.pos).normalize();
+
+	float x = pos.x; float y = pos.y; float z = pos.z;
+	float rx = rel.x; float ry = rel.y; float rz = rel.z;
+
+	float mat[16] = { -ry, rx, rz, 0,
+			  rx, ry, 0, 0,
+			  rx*rz - ry*rz, rx*rz + ry*rz, -rx*rx - ry*ry, 0,
+			  0, 0, 0, 1 };
+	glMultMatrixf(mat);
 
 	localVertices[0].draw(GL_QUADS, 4);
 
