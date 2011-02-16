@@ -107,12 +107,6 @@ int main(int argc, char **argv) {
 
 		GLCheck( glMatrixMode(GL_PROJECTION) );
 		GLCheck( glLoadIdentity() );
-		float mat[16] = { 1, 0, 0, 0,
-				  0, 0, 1, 0,
-				  0, -1, 0, 0,
-				  0, 0, 0, 1 };
-		glScalef(-1, 1, 1);
-		//glRotatef(90, 1, 0, 0);
 
 		GLCheck( gluPerspective(90., G::windowWidth/G::windowHeight,
 		                        G::clipNear, G::clipFar) );
@@ -121,7 +115,6 @@ int main(int argc, char **argv) {
 		GLCheck( glLoadIdentity() );
 
 		GLCheck( glOrtho(-1, 1, -1, 1, G::clipNear, G::clipFar) );
-		//glMultMatrixf(mat);
 
 		GLCheck( glDepthFunc(GL_LESS) );
 

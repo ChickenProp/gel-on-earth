@@ -60,6 +60,12 @@ void Player::draw() {
 }
 
 void Player::setupCamera() {
+	// I want x and y to be the plane that the player walks on, and z to be
+	// "up". This is a right-handed coordinate system, while opengl uses a
+	// left-handed system, so I need to flip an axis. x turns out to be the
+	// axis that's reversed from the gluLookAt.
+	glScalef(-1, 1, 1);
+
 	gluLookAt(orientation.x, orientation.y, orientation.z,
 	          0, 0, 0,
 	          0, 0, 1);

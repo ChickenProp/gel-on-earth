@@ -5,9 +5,6 @@
 
 class Vertex {
 public:
-	// Intuitively, x and y are parallel to the ground, and z is "up".
-	// OpenGL has y being "up". So I swap the position of y and z, so now
-	// it works like I expect.
 	float x, y, z;
 
 	bool hasTexture;
