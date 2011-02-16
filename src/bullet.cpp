@@ -50,22 +50,17 @@ void Bullet::draw() {
 
 	glPushMatrix();
 
-	// This makes it always face towards the player. Unfortunately that
-	// means if you get close, you can see more around it than you could
-	// before. I probably should make it so that it always faces parallel to
-	// the direction the player is facing.
-
 	btTransform trans;
 	body->getMotionState()->getWorldTransform(trans);
 	ph::vec3f pos = trans.getOrigin();
-	ph::vec3f rel = (pos - G::gameScreen->player.pos).normalize();
+	ph::vec3f face = G::gameScreen->player.orientation;
 
 	float x = pos.x; float y = pos.y; float z = pos.z;
-	float rx = rel.x; float ry = rel.y; float rz = rel.z;
+	float fx = face.x; float fy = face.y; float fz = face.z;
 
-	float mat[16] = { -ry, rx, 0, 0,
-			  rx, ry, rz, 0,
-			  rx*rz, ry*rz, -rx*rx - ry*ry, 0, // cross product
+	float mat[16] = { -fy, fx, 0, 0,
+			  fx, fy, fz, 0,
+			  fx*fz, fy*fz, -fx*fx - fy*fy, 0, // cross product
 			  x, y, z, 1 };
 	glMultMatrixf(mat);
 
