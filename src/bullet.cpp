@@ -6,10 +6,9 @@ Bullet::Bullet(ph::vec3f pos, ph::vec3f vel) {
 	shape = new btSphereShape(0.2);
 
 	btScalar mass = 1;
-	btVector3 inertia = vel;
 	btMotionState *state = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1), pos));
 
-	initialize(mass, inertia, state);
+	initialize(mass, vel, state);
 
 	sprite.SetImage(G::images::bullet_red);
 
@@ -47,26 +46,30 @@ void Bullet::update() {
 }
 
 void Bullet::draw() {
-	printf("ohai\n");
-
 	sprite.GetImage()->Bind();
 
 	glPushMatrix();
 
+	// This makes it always face towards the player. Unfortunately that
+	// means if you get close, you can see more around it than you could
+	// before. I probably should make it so that it always faces parallel to
+	// the direction the player is facing.
+
 	btTransform trans;
 	body->getMotionState()->getWorldTransform(trans);
 	ph::vec3f pos = trans.getOrigin();
-	//glTranslatef(pos.x, pos.z, pos.y);
 	ph::vec3f rel = (pos - G::gameScreen->player.pos).normalize();
 
 	float x = pos.x; float y = pos.y; float z = pos.z;
 	float rx = rel.x; float ry = rel.y; float rz = rel.z;
 
-	float mat[16] = { -ry, rx, rz, 0,
-			  rx, ry, 0, 0,
-			  rx*rz - ry*rz, rx*rz + ry*rz, -rx*rx - ry*ry, 0,
-			  0, 0, 0, 1 };
+	float mat[16] = { -ry, rx, 0, 0,
+			  rx, ry, rz, 0,
+			  rx*rz, ry*rz, -rx*rx - ry*ry, 0, // cross product
+			  x, y, z, 1 };
 	glMultMatrixf(mat);
+
+	glScalef(0.2, 0.2, 0.2);
 
 	localVertices[0].draw(GL_QUADS, 4);
 
