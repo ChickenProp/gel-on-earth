@@ -108,13 +108,11 @@ int main(int argc, char **argv) {
 		GLCheck( glMatrixMode(GL_PROJECTION) );
 		GLCheck( glLoadIdentity() );
 
-		GLCheck( gluPerspective(90., G::windowWidth/G::windowHeight,
+		GLCheck( gluPerspective(45., G::windowWidth/G::windowHeight,
 		                        G::clipNear, G::clipFar) );
 
 		GLCheck( glMatrixMode(GL_MODELVIEW) );
 		GLCheck( glLoadIdentity() );
-
-		GLCheck( glOrtho(-1, 1, -1, 1, G::clipNear, G::clipFar) );
 
 		GLCheck( glDepthFunc(GL_LESS) );
 
